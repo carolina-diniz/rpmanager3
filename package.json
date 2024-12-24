@@ -1,0 +1,29 @@
+{
+  "name": "rpmanager3",
+  "version": "1.0.0",
+  "description": "Bot para ajudar a gerenciar servidores de discord para GTA RP",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carolina-diniz/rpmanager.git"
+  },
+  "author": "Carolina Diniz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carolina-diniz/rpmanager/issues"
+  },
+  "homepage": "https://github.com/carolina-diniz/rpmanager#readme",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "mongoose": "^8.9.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  }
+}
