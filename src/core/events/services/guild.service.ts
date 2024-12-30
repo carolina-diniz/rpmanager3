@@ -57,7 +57,7 @@ async function createChannelMap(channels: GuildChannelManager): Promise<Map<stri
         parentId: channel.parentId,
         position: channel.position,
         isEntryChannel: false,
-        isModeratorChannel: false,
+        isApprovalChannel: false,
         isPermaDeathChannel: false,
       };
 
@@ -77,7 +77,7 @@ async function createRoleMap(roles: RoleManager): Promise<Map<string, rolesSchem
         id: role.id,
         name: role.name,
         rawPosition: role.rawPosition,
-        isModerator: false,
+        isApprover: false,
         isEntryRole: false,
       };
 
@@ -105,7 +105,6 @@ export async function createInviteMap(guild: Guild): Promise<Map<string, invites
 }
 
 export async function createMemberMap(guild: Guild): Promise<Map<string, membersSchema>> {
-
   const memberMap = new Map();
 
   (await guild.members.fetch()).map((member) => {

@@ -1,7 +1,9 @@
 import { REST, Routes } from "discord.js";
 import commands from "../commands/commands";
+import print from "../print/print";
 
 export default async (clientId: string, guild: { id: string; name: string }) => {
+  print.init(__filename);
   try {
     const DISCORD_TOKEN = process.env.DISCORD_TOKEN!;
     const rest: REST = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
@@ -10,8 +12,8 @@ export default async (clientId: string, guild: { id: string; name: string }) => 
       body: commandsData,
     });
 
-    console.log(`${data.length} commands successfully deployed to ${guild.name}`);
+    print.log(__filename, `${data.length} commands successfully deployed to ${guild.name}`);
   } catch (error) {
-    console.error("Error deploying commands:", error);
+    print.error(__filename, "Error deploying commands:", error);
   }
-}
+};

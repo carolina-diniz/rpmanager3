@@ -1,9 +1,10 @@
 import { GuildMember } from "discord.js";
 import { membersSchema } from "../../database";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (member: GuildMember) => {
-  console.log("[EVENT] (guildMemberAdd)");
+  print.init(__filename)
 
   const guildDb = await modelGuild.findOne({ id: member.guild.id });
 

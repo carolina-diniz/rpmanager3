@@ -1,8 +1,10 @@
 import { Role } from "discord.js";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (role: Role) => {
-  console.log(`[EVENT] (roleDelete) name: ${role.name}`);
+  print.init(__filename)
+  
   const guildDb = await modelGuild.findOne({ id: role.guild.id });
 
   if (!guildDb) return;

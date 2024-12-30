@@ -5,17 +5,22 @@ import { client } from "../../../connections";
 export const data = new SlashCommandBuilder().setName("uptime").setDescription("Shows the bot's uptime.");
 
 export async function execute(interaction: CommandInteraction) {
+  await interaction.deferReply({ ephemeral: true });
+
   const uptime = process.uptime();
-  const days = Math.floor(uptime / 86400);
-  const hours = Math.floor(uptime / 3600) % 24;
-  const minutes = Math.floor(uptime / 60) % 60;
-  const seconds = Math.floor(uptime) % 60;
 
   const embed = new EmbedBuilder()
     .setTitle(client.user!.username)
     .setDescription(
-      "**Status**: ` Online ✅ `\n" + `**Uptime:** <t:${Math.floor(Date.now() / 1000 - uptime)}:R>`
+      "**Status**: ` Online ✅ `\n" +
+        `**Uptime:** <t:${Math.floor(Date.now() / 1000 - uptime)}:R>\n` +
+        "**Version:** `" +
+        process.env.npm_package_version +
+        "`\n" +
+        "**Latency:** `" +
+        Math.round(client.ws.ping) +
+        "ms`\n"
     );
 
-  await interaction.reply({ embeds: [embed] });
+  await interaction.editReply({ embeds: [embed] });
 }

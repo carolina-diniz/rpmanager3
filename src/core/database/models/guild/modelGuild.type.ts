@@ -7,7 +7,7 @@ export interface channelsSchema {
   parentId: string | null;
   position: number;
   isEntryChannel: boolean;
-  isModeratorChannel: boolean;
+  isApprovalChannel: boolean;
   isPermaDeathChannel: boolean;
 }
 
@@ -15,7 +15,7 @@ export interface rolesSchema {
   id: string;
   name: string;
   rawPosition: number;
-  isModerator: boolean;
+  isApprover: boolean;
   isEntryRole: boolean;
 }
 

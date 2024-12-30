@@ -1,11 +1,12 @@
 import { Role } from "discord.js";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (oldRole: Role) => {
+  print.init(__filename);
+
   const role = await oldRole.guild.roles.fetch(oldRole.id);
   if (!role) return;
-
-  console.log(`[EVENT] (roleUpdate) name: ${role.name}`);
 
   const guildDb = await modelGuild.findOne({ id: role.guild.id });
 
@@ -17,7 +18,7 @@ export default async (oldRole: Role) => {
     id: role.id,
     name: role.name,
     rawPosition: role.rawPosition,
-    isModerator: roleData.isModerator,
+    isApprover: roleData.isApprover,
     isEntryRole: roleData.isEntryRole,
   });
 

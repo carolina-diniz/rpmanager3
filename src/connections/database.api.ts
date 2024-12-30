@@ -1,11 +1,12 @@
 import { connect, ConnectOptions } from "mongoose";
 import { handleExit } from "..";
+import print from "../core/print/print";
 import storage from "../storage";
 
 export default {
   connect: async () => {
     try {
-      console.log("Connecting to database...");
+      print.log(__filename, "Connecting to database...");
 
       const URI = `mongodb+srv://${storage.DATABASE.MONGOOSE.USERNAME}:${storage.DATABASE.MONGOOSE.PASSWORD}@rpmanager.lywzass.mongodb.net/?retryWrites=true&w=majority&appName=RPManager`;
 
@@ -19,9 +20,9 @@ export default {
 
       await connect(URI, clientOptions);
 
-      console.log("Connected to database!");
+      print.log(__filename, "Connected to database!");
     } catch (error) {
-      console.error("Error connecting to database: ", error);
+      print.error(__filename, error);
       handleExit();
     }
   },

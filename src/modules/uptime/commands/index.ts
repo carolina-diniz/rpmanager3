@@ -1,1 +1,1 @@
-export * from './uptime';
+export * as uptimeCommand from './uptime';

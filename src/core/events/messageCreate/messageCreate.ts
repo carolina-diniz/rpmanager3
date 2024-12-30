@@ -1,7 +1,8 @@
 import { Message, OmitPartialGroupDMChannel } from "discord.js";
+import print from "../../print/print";
 
 export default async (message: OmitPartialGroupDMChannel<Message<boolean>>) => {
-  console.log(`[EVENT] (messageCreate) <user: ${message.author.username}>`);
+  print.init(__filename)
 
   if (message.author.bot) return;
 };

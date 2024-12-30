@@ -1,11 +1,12 @@
 import { DMChannel, NonThreadGuildBasedChannel } from "discord.js";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (
   oldChannel: DMChannel | NonThreadGuildBasedChannel,
   newChannel: DMChannel | NonThreadGuildBasedChannel
 ) => {
-  console.log("[EVENT] (channelUpdate)");
+  print.init(__filename)
 
   if (newChannel.isDMBased()) return;
 

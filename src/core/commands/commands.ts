@@ -1,5 +1,8 @@
-import { pingCommand } from "../../modules/ping";
+
+import { registerCommand } from "../../modules/register";
+import { uptimeCommand } from "../../modules/uptime";
 
 export default {
-  ping: pingCommand
+  uptime: uptimeCommand,
+  register: registerCommand,
 }

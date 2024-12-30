@@ -1,8 +1,9 @@
 import { Guild } from "discord.js";
+import print from "../../print/print";
 import guildService from "../services/guild.service";
 
 export default async (guild: Guild) => {
-  console.log(`[EVENT] (guildDelete) name: ${guild.name}`);
+  print.init(__filename)
   
   await guildService.deleteAtDatabase(guild);
 };

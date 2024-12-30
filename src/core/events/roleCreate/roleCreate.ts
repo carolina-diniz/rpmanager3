@@ -1,8 +1,9 @@
 import { Role } from "discord.js";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (role: Role) => {
-  console.log("[EVENT] (roleCreate)");
+  print.init(__filename)
 
   const guildDb = await modelGuild.findOne({ id: role.guild.id });
 
@@ -12,7 +13,7 @@ export default async (role: Role) => {
     id: role.id,
     name: role.name,
     rawPosition: role.rawPosition,
-    isModerator: false,
+    isApprover: false,
     isEntryRole: false,
   });
 

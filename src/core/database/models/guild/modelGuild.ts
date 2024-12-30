@@ -9,7 +9,7 @@ const channelSchema = {
   parentId: String,
   position: Number,
   isEntryChannel: Boolean,
-  isModeratorChannel: Boolean,
+  isApprovalChannel: Boolean,
   isPermaDeathChannel: Boolean,
 };
 
@@ -17,7 +17,7 @@ const rolesSchema = {
   id: String,
   name: String,
   rawPosition: Number,
-  isModerator: Boolean,
+  isApprover: Boolean,
   isEntryRole: Boolean,
 };
 

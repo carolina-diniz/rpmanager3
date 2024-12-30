@@ -1,8 +1,9 @@
 import { GuildMember, PartialGuildMember } from "discord.js";
 import modelGuild from "../../database/models/guild/modelGuild";
+import print from "../../print/print";
 
 export default async (member: GuildMember | PartialGuildMember) => {
-  console.log("[EVENT] (guildMemberRemove)");
+  print.init(__filename)
 
   const guildDb = await modelGuild.findOne({ id: member.guild.id });
 
