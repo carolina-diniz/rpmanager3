@@ -1,6 +1,9 @@
 import { genericPage } from "../../genericPage";
-import { createchannels_createapproval, createchannels_createregister } from "./createChannels";
-import { createroles_createapproval, createroles_createapproved } from "./createRoles";
+
+import * as createchannels_createapproval from "./createApproval";
+import * as createroles_createapproved from "./createApproved";
+import * as createroles_createapprover from "./createApprover";
+import * as createchannels_createregister from "./createRegister";
 
 export const registerButtons = {
   register_createchannels: genericPage,
@@ -10,5 +13,5 @@ export const registerButtons = {
   createchannels_createregister,
   createchannels_createapproval,
   createroles_createapproved,
-  createroles_createapproval,
+  createroles_createapprover,
 };

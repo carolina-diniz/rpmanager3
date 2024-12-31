@@ -1,13 +1,12 @@
 import { ButtonInteraction, Role } from "discord.js";
-import { eventEmitter, onBuffered } from "../../../../core";
-import modelGuild from "../../../../core/database/models/guild/modelGuild";
-import print from "../../../../core/print/print";
-import { genericPage } from "../../../genericPage";
-
+import { eventEmitter, onBuffered } from "../../../core";
+import modelGuild from "../../../core/database/models/guild/modelGuild";
+import print from "../../../core/print/print";
+import { genericPage } from "../../genericPage";
 export async function execute(interaction: ButtonInteraction) {
   try {
     const { guild, channel: interactionChannel } = interaction;
-    const roleName = "Gestor de Entrada";
+    const roleName = "Membro Aprovado";
 
     if (!guild) {
       print.error(__filename, "Guild not found in interaction");
@@ -62,10 +61,10 @@ async function saveIsApprovalChannel(role: Role): Promise<void> {
   const roleData = guildDb.roles.get(role.id);
 
   if (!roleData) throw new Error("Role not found");
-  roleData.EntryManager = true;
+  roleData.ApprovedMember = true;
 
   guildDb.roles.set(role.id, roleData);
-  guildDb.markModified("role");
+  guildDb.markModified("roles");
 
   await guildDb.save();
 }
