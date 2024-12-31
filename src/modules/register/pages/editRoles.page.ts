@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction } from "discord.js";
-import buttonConstructor from "../../../../core/buttons/buttonConstructor";
-import buttonsList from "../../../../core/buttons/buttonsList";
+import buttonConstructor from "../../../core/buttons/buttonConstructor";
+import buttonsList from "../../../core/buttons/buttonsList";
 
 const { general } = buttonsList;
 
@@ -14,21 +14,23 @@ export default {
   footer: {
     text: "home/editRoles",
   },
-  buttons: async (interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> => {
-    return new ActionRowBuilder<ButtonBuilder>().addComponents(
-      buttonConstructor({
-        customId: "editRoles_editApproved",
-        label: "Entrada",
-        emoji: "📝",
-      }),
-      buttonConstructor({
-        customId: "editRoles_editapproval",
-        label: "Aprovação",
-        emoji: "✅",
-        disabled: true,
-      }),
-      general.back,
-      general.close
-    );
-  },
+  buttons,
 };
+
+async function buttons(interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> {
+  return new ActionRowBuilder<ButtonBuilder>().addComponents(
+    buttonConstructor({
+      customId: "editRoles_editApproved",
+      label: "Entrada",
+      emoji: "📝",
+    }),
+    buttonConstructor({
+      customId: "editRoles_editapproval",
+      label: "Aprovação",
+      emoji: "✅",
+      disabled: true,
+    }),
+    general.back,
+    general.close
+  );
+}
