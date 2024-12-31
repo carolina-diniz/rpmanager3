@@ -1,28 +1,32 @@
-import guildService from "../../../core/events/services/guild.service";
+import modelGuild from "../../../core/database/models/guild/modelGuild";
 import print from "../../../core/print/print";
 
 type rolesCreatedResolvedType = {
-  isApprover: boolean;
-  isEntryRole: boolean;
+  EntryManager: boolean;
+  ApprovedMember: boolean;
 };
 
 export default async (guildId: string): Promise<rolesCreatedResolvedType> => {
-  print.init(__filename)
+  print.init(__filename);
 
   const rolesCreatedResolved: rolesCreatedResolvedType = {
-    isApprover: false,
-    isEntryRole: false,
+    EntryManager: false,
+    ApprovedMember: false,
   };
 
-  const guildDb = await guildService.getAtDatabase(guildId);
-  if (!guildDb) return rolesCreatedResolved;
+  const guildDb = await modelGuild.findOne({ id: guildId });
+
+  if (!guildDb) {
+    print.log(__filename, "Guild not found");
+    return rolesCreatedResolved;
+  }
 
   guildDb.roles.forEach((roles) => {
-    if (roles.isApprover) {
-      rolesCreatedResolved.isApprover = true;
+    if (roles.EntryManager) {
+      rolesCreatedResolved.EntryManager = true;
     }
-    if (roles.isApprover) {
-      rolesCreatedResolved.isApprover = true;
+    if (roles.ApprovedMember) {
+      rolesCreatedResolved.EntryManager = true;
     }
   });
 

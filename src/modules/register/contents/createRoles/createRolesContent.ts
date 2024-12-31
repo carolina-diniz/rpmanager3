@@ -1,5 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction } from "discord.js";
 import { buttonsList, createButton } from "../../../../core/buttons/buttonConstructor";
+import getRolesCreated from "../../services/getRolesCreated";
 
 const { general } = buttonsList;
 
@@ -14,11 +15,13 @@ export default {
     text: "home/createRoles",
   },
   buttons: async (interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> => {
+    const rolesCreated = await getRolesCreated(interaction.guild!.id)
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
       createButton({
         customId: "createroles_createapproved",
         label: "Criar Cargo de Entrada",
         emoji: "📝",
+        disabled: rolesCreated.ApprovedMember,
       }),
       createButton({
         customId: "createroles_createapproval",

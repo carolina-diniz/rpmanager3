@@ -18,8 +18,8 @@ export default async (oldRole: Role) => {
     id: role.id,
     name: role.name,
     rawPosition: role.rawPosition,
-    isApprover: roleData.isApprover,
-    isEntryRole: roleData.isEntryRole,
+    EntryManager: roleData.EntryManager,
+    ApprovedMember: roleData.ApprovedMember,
   });
 
   await guildDb.save();

@@ -37,13 +37,13 @@ export default {
         customId: "register_createRoles",
         label: "Criar Cargos",
         emoji: "🛂",
-        disabled: rolesCreated.isApprover && rolesCreated.isEntryRole ? true : false,
+        disabled: rolesCreated.EntryManager && rolesCreated.ApprovedMember ? true : false,
       }),
       createButton({
         customId: "register_editRoles",
         label: "Editar Cargos",
         emoji: "🛂",
-        disabled: rolesCreated.isApprover || rolesCreated.isEntryRole ? false : true,
+        disabled: rolesCreated.EntryManager || rolesCreated.ApprovedMember ? false : true,
       }),
       general.close
     );

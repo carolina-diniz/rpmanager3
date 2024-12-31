@@ -1,13 +1,4 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonInteraction,
-  ButtonStyle,
-  ChannelType,
-  EmbedBuilder,
-  Guild,
-  TextChannel,
-} from "discord.js";
+import { ButtonInteraction, ChannelType, Guild, TextChannel } from "discord.js";
 import { eventEmitter, onBuffered } from "../../../../core";
 import modelGuild from "../../../../core/database/models/guild/modelGuild";
 import print from "../../../../core/print/print";
@@ -17,7 +8,7 @@ export async function execute(interaction: ButtonInteraction) {
   print.log(__filename, "starting execution");
 
   const { guild, channel: interactionChannel } = interaction;
-  const channelName = "Registro de Personagem";
+  const channelName = "Aprovação de Personagem";
 
   if (!guild) {
     print.error(__filename, "Guild not found in interaction");
@@ -28,7 +19,6 @@ export async function execute(interaction: ButtonInteraction) {
     const channel = await createChannel(guild, channelName);
     if (!channel) throw new Error("Channel not created");
 
-    await createRegisterMessage(channel, guild.name);
     interaction.customId = "register_createchannels";
     await genericPage.execute(interaction);
 
@@ -51,15 +41,14 @@ async function createChannel(guild: Guild, channelName: string) {
     permissionOverwrites: [
       {
         id: guild.roles.everyone.id,
-        allow: ["ViewChannel", "ReadMessageHistory"],
+        allow: ["ReadMessageHistory", "ManageMessages"],
         deny: [
+          "ViewChannel",
           "SendMessages",
           "SendMessagesInThreads",
           "SendPolls",
           "SendTTSMessages",
           "SendVoiceMessages",
-          "ManageMessages",
-          "AddReactions",
         ],
       },
     ],
@@ -69,7 +58,7 @@ async function createChannel(guild: Guild, channelName: string) {
   if (channel) {
     try {
       await waitForChannelSave(channel.id);
-      await saveIsEntryChannel(channel);
+      await saveIsApprovalChannel(channel);
       return channel;
     } catch (error) {
       console.error("[createRegister] Error saving channel:", error);
@@ -96,7 +85,7 @@ async function waitForChannelSave(channelId: string): Promise<void> {
   });
 }
 
-async function saveIsEntryChannel(channel: TextChannel): Promise<void> {
+async function saveIsApprovalChannel(channel: TextChannel): Promise<void> {
   const guildDb = await modelGuild.findOne({ id: channel.guild.id });
 
   if (!guildDb) throw new Error("Guild not found");
@@ -104,30 +93,10 @@ async function saveIsEntryChannel(channel: TextChannel): Promise<void> {
   const channelData = guildDb.channels.get(channel.id);
 
   if (!channelData) throw new Error("Channel not found");
-  channelData.isEntryChannel = true;
+  channelData.isApprovalChannel = true;
 
   guildDb.channels.set(channel.id, channelData);
   guildDb.markModified("channels");
 
   await guildDb.save();
-}
-
-async function createRegisterMessage(channel: TextChannel, guildName: string): Promise<void> {
-  const embedMessage = new EmbedBuilder()
-    .setTitle(`REGISTRO ~ ${guildName.toUpperCase()}`)
-    .setDescription(
-      `Bem-vindo ao sistema de registro do ${guildName}!\n` +
-        `Preencha com suas informações do jogo e evite compartilhar dados pessoais.\n\n` +
-        `Clique no botão \` Iniciar \` para prosseguir com o registro.`
-    );
-
-  const start = new ButtonBuilder()
-    .setCustomId("createregister_start")
-    .setLabel("Iniciar")
-    .setStyle(ButtonStyle.Success)
-    .setEmoji({ name: "✅" });
-
-  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(start);
-
-  await channel.send({ embeds: [embedMessage], components: [row] });
 }

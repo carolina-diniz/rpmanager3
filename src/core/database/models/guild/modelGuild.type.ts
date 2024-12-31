@@ -15,8 +15,8 @@ export interface rolesSchema {
   id: string;
   name: string;
   rawPosition: number;
-  isApprover: boolean;
-  isEntryRole: boolean;
+  EntryManager: boolean;
+  ApprovedMember: boolean;
 }
 
 export interface invitesSchema {

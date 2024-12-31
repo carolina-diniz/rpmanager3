@@ -17,8 +17,8 @@ const rolesSchema = {
   id: String,
   name: String,
   rawPosition: Number,
-  isApprover: Boolean,
-  isEntryRole: Boolean,
+  EntryManager: Boolean,
+  ApprovedMember: Boolean,
 };
 
 const invitesSchema = {

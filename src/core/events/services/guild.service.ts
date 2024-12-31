@@ -77,8 +77,8 @@ async function createRoleMap(roles: RoleManager): Promise<Map<string, rolesSchem
         id: role.id,
         name: role.name,
         rawPosition: role.rawPosition,
-        isApprover: false,
-        isEntryRole: false,
+        EntryManager: false,
+        ApprovedMember: false,
       };
 
       roleMap.set(role.id, data);
