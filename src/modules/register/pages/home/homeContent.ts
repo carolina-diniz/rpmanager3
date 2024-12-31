@@ -1,5 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction } from "discord.js";
-import { buttonsList, createButton } from "../../../../core/buttons/buttonConstructor";
+import buttonConstructor from "../../../../core/buttons/buttonConstructor";
+import buttonsList from "../../../../core/buttons/buttonsList";
 import getChannelsCreated from "../../services/getChannelsCreated";
 import getRolesCreated from "../../services/getRolesCreated";
 const { general } = buttonsList;
@@ -19,27 +20,27 @@ export default {
     const rolesCreated = await getRolesCreated(interaction.guildId!);
 
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
-      createButton({
+      buttonConstructor({
         customId: "register_createchannels",
         label: "Criar Canais",
         emoji: "➕",
         disabled:
           channelsCreated.isApprovalChannelCreated && channelsCreated.isEntryChannelCreated ? true : false,
       }),
-      createButton({
+      buttonConstructor({
         customId: "register_editChannels",
         label: "Editar Canais",
         emoji: "✍️",
         disabled:
           channelsCreated.isApprovalChannelCreated || channelsCreated.isEntryChannelCreated ? false : true,
       }),
-      createButton({
+      buttonConstructor({
         customId: "register_createRoles",
         label: "Criar Cargos",
         emoji: "🛂",
         disabled: rolesCreated.EntryManager && rolesCreated.ApprovedMember ? true : false,
       }),
-      createButton({
+      buttonConstructor({
         customId: "register_editRoles",
         label: "Editar Cargos",
         emoji: "🛂",

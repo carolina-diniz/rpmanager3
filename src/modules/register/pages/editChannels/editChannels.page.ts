@@ -1,5 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction } from "discord.js";
-import { buttonsList, createButton } from "../../../../core/buttons/buttonConstructor";
+import buttonConstructor from "../../../../core/buttons/buttonConstructor";
+import buttonsList from "../../../../core/buttons/buttonsList";
 
 const { general } = buttonsList;
 
@@ -15,12 +16,12 @@ export default {
   },
   buttons: async (interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> => {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
-      createButton({
+      buttonConstructor({
         customId: "editchannels_editregister",
         label: "Canal de Registro",
         emoji: "📝",
       }),
-      createButton({
+      buttonConstructor({
         customId: "editchannels_editapproval",
         label: "Canal de Aprovação",
         emoji: "✅",

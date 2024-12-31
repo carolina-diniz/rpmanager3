@@ -1,5 +1,5 @@
 import { Role } from "discord.js";
-import modelGuild from "../../database/models/guild/modelGuild";
+import modelGuild from "../../database/models/guilds/modelGuild";
 import print from "../../print/print";
 
 export default async (role: Role) => {

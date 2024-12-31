@@ -9,24 +9,9 @@ export type buttonsConstructorType = {
   disabled?: boolean;
 };
 
-export const buttonsList = {
-  general: {
-    close: createButton({
-      customId: "general_close",
-      label: "Fechar",
-      emoji: "❌",
-      buttonStyle: ButtonStyle.Danger,
-    }),
-    back: createButton({
-      customId: "general_back",
-      label: "Voltar",
-      emoji: "⬅️",
-      buttonStyle: ButtonStyle.Secondary,
-    }),
-  },
-};
 
-export function createButton(data: buttonsConstructorType): ButtonBuilder {
+
+export default (data: buttonsConstructorType): ButtonBuilder => {
   const { customId, label, emoji, buttonStyle = ButtonStyle.Primary, disabled = false } = data;
   print.log(__filename, `Building ${customId}`);
 
@@ -41,4 +26,4 @@ export function createButton(data: buttonsConstructorType): ButtonBuilder {
   }
 
   return button;
-}
+};

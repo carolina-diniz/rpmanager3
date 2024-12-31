@@ -1,4 +1,4 @@
-import { registerContents } from "../register/contents/content";
+import { registerContents } from "../register/pages";
 
 export const genericPageContent = {
   ...registerContents,

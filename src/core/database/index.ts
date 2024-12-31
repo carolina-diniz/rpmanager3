@@ -1,1 +1,1 @@
-export * from './models/guild';
+export * from './models';

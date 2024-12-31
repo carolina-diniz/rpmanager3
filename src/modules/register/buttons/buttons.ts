@@ -10,8 +10,8 @@ export const registerButtons = {
   register_editchannels: genericPage,
   register_createroles: genericPage,
   register_editroles: genericPage,
-  createchannels_createregister,
   createchannels_createapproval,
   createroles_createapproved,
   createroles_createapprover,
+  createchannels_createregister,
 };

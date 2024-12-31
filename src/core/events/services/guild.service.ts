@@ -2,13 +2,15 @@ import { Guild, GuildChannelManager, RoleManager } from "discord.js";
 import { Document, Types } from "mongoose";
 import { client } from "../../../connections";
 import { channelsSchema, invitesSchema, membersSchema, ModelGuild, rolesSchema } from "../../database";
-import modelGuild from "../../database/models/guild/modelGuild";
+import modelGuild from "../../database/models/guilds/modelGuild";
+import print from "../../print/print";
 
 export type modelGuild = Document<unknown, {}, ModelGuild> &
   ModelGuild & { _id: Types.ObjectId } & { __v: number };
 
 export default {
   createAtDatabase: async (guild: Guild) => {
+    print.init(__filename)
     const { id, name, memberCount, ownerId, channels, roles } = guild;
 
     const [channelMap, roleMap, inviteMap, membersMap, bot] = await Promise.all([

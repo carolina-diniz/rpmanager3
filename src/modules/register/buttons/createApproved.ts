@@ -1,6 +1,6 @@
 import { ButtonInteraction, Role } from "discord.js";
 import { eventEmitter, onBuffered } from "../../../core";
-import modelGuild from "../../../core/database/models/guild/modelGuild";
+import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
 import { genericPage } from "../../genericPage";
 export async function execute(interaction: ButtonInteraction) {

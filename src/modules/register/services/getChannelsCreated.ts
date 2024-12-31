@@ -1,4 +1,4 @@
-import modelGuild from "../../../core/database/models/guild/modelGuild";
+import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
 
 type channelCreatedResolvedType = {

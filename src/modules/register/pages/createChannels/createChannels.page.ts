@@ -1,5 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction } from "discord.js";
-import { buttonsList, createButton } from "../../../../core/buttons/buttonConstructor";
+import buttonConstructor from "../../../../core/buttons/buttonConstructor";
+import buttonsList from "../../../../core/buttons/buttonsList";
 import getChannelsCreated from "../../services/getChannelsCreated";
 const { general } = buttonsList;
 
@@ -18,13 +19,13 @@ export default {
   ): Promise<ActionRowBuilder<ButtonBuilder>> => {
     const channelsCreated = await getChannelsCreated(interaction.guild!.id);
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
-      createButton({
+      buttonConstructor({
         customId: "createchannels_createregister",
         label: "Criar Canal de Registro",
         emoji: "📝",
         disabled: channelsCreated.isEntryChannelCreated,
       }),
-      createButton({
+      buttonConstructor({
         customId: "createchannels_createapproval",
         label: "Criar Canal de Aprovação",
         emoji: "✅",
