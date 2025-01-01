@@ -12,7 +12,7 @@ export default {
     "- Canal de Aprovação: Onde os moderadores poderão aprovar ou reprovar as solicitações.\n\n" +
     "Utilize os botões abaixo para criar os canais ou voltar à configuração principal.",
   footer: {
-    text: "home/createChannels",
+    text: "home/createchannels",
   },
   buttons,
 };
@@ -23,13 +23,13 @@ async function buttons(
   const channelsCreated = await getChannelsCreated(interaction.guild!.id);
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     buttonConstructor({
-      customId: "createchannels_createregister",
+      customId: "createchannels_entrychannel",
       label: "Criar Canal de Registro",
       emoji: "📝",
       disabled: channelsCreated.isEntryChannelCreated,
     }),
     buttonConstructor({
-      customId: "createchannels_createapproval",
+      customId: "createchannels_approvalchannel",
       label: "Criar Canal de Aprovação",
       emoji: "✅",
       disabled: channelsCreated.isApprovalChannelCreated,

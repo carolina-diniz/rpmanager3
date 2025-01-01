@@ -12,7 +12,7 @@ export default {
     "- Cargo de Aprovação: Escolha um novo cargo para ser utilizado na aprovação de solicitações. (Por enquanto, ficará desativado.)\n\n" +
     "Utilize os botões abaixo para editar os cargos ou voltar à configuração principal.",
   footer: {
-    text: "home/editRoles",
+    text: "home/editroles",
   },
   buttons,
 };
@@ -20,12 +20,12 @@ export default {
 async function buttons(interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     buttonConstructor({
-      customId: "editRoles_editApproved",
+      customId: "editroles_editApproved",
       label: "Entrada",
       emoji: "📝",
     }),
     buttonConstructor({
-      customId: "editRoles_editapproval",
+      customId: "editroles_editapproval",
       label: "Aprovação",
       emoji: "✅",
       disabled: true,

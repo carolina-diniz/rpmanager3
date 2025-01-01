@@ -1,27 +1,29 @@
 import { GuildMember, PartialGuildMember } from "discord.js";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import print from "../../print/print";
 
 export default async (member: GuildMember | PartialGuildMember) => {
-  print.init(__filename)
+  try {
+    print.init(__filename);
 
-  const guildDb = await modelGuild.findOne({ id: member.guild.id });
+    const guildDb = await database.get("guild", member.guild);
 
-  if (!guildDb) return;
+    const memberDb = guildDb?.members.get(member.id);
 
-  const memberDb = guildDb.members.get(member.id);
+    if (!memberDb) return;
 
-  if (!memberDb) return;
+    memberDb.username = member.user.username;
+    memberDb.displayName = member.user.displayName;
+    memberDb.nickname = member.nickname;
+    memberDb.kickable = member.kickable;
+    memberDb.manageable = member.manageable;
+    memberDb.moderatable = member.moderatable;
+    memberDb.bannable = member.bannable;
 
-  memberDb.username = member.user.username;
-  memberDb.displayName = member.user.displayName;
-  memberDb.nickname = member.nickname;
-  memberDb.kickable = member.kickable;
-  memberDb.manageable = member.manageable;
-  memberDb.moderatable = member.moderatable;
-  memberDb.bannable = member.bannable;
+    guildDb?.members.set(member.id, memberDb);
 
-  guildDb.members.set(member.id, memberDb);
-
-  await guildDb.save();
+    await guildDb?.save();
+  } catch (error) {
+    print.error(__filename, error);
+  }
 };

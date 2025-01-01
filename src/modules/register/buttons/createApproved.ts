@@ -1,6 +1,6 @@
 import { ButtonInteraction, Role } from "discord.js";
 import { eventEmitter, onBuffered } from "../../../core";
-import modelGuild from "../../../core/database/models/guilds/modelGuild";
+import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 import { genericPage } from "../../genericPage";
 export async function execute(interaction: ButtonInteraction) {
@@ -54,17 +54,19 @@ async function waitForRoleSave(roleId: string): Promise<void> {
 }
 
 async function saveIsApprovalChannel(role: Role): Promise<void> {
-  const guildDb = await modelGuild.findOne({ id: role.guild.id });
+  try {
+    const guildDb = await database.get("guild", role.guild);
+    const roleData = guildDb?.roles.get(role.id);
 
-  if (!guildDb) throw new Error("Guild not found");
+    if (!roleData) throw new Error("Role not found");
 
-  const roleData = guildDb.roles.get(role.id);
+    roleData.ApprovedMember = true;
 
-  if (!roleData) throw new Error("Role not found");
-  roleData.ApprovedMember = true;
+    guildDb?.roles.set(role.id, roleData);
+    guildDb?.markModified("roles");
 
-  guildDb.roles.set(role.id, roleData);
-  guildDb.markModified("roles");
-
-  await guildDb.save();
+    await guildDb?.save();
+  } catch (error) {
+    print.error(__filename, error);
+  }
 }

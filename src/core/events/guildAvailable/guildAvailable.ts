@@ -1,7 +1,7 @@
 import { Guild } from "discord.js";
 import { client } from "../../../connections";
 import storage from "../../../storage";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import deployCommands from "../../deployCommands/deployCommands";
 import print from "../../print/print";
 import guildService, { createInviteMap } from "../services/guild.service";
@@ -11,7 +11,7 @@ export default async (guild: Guild) => {
 
   const { id, name, memberCount, ownerId } = guild;
 
-  const guildDb = await modelGuild.findOne({ id });
+  const guildDb = await database.get("guild", guild);
   const inviteMap = await createInviteMap(guild);
   const bot = await guild.members.fetch(client.user!.id);
 
@@ -26,11 +26,11 @@ export default async (guild: Guild) => {
     return;
   }
 
-  print.log(__filename, `updating guild: ${guild.name}`);
-  (guildDb.name = name),
-    (guildDb.memberCount = memberCount),
-    (guildDb.ownerId = ownerId),
-    (guildDb.botRawPosition = bot.roles.highest.rawPosition),
-    (guildDb.invites = inviteMap),
-    await guildDb.save();
+  guildDb.name = name;
+  guildDb.memberCount = memberCount;
+  guildDb.ownerId = ownerId;
+  guildDb.botRawPosition = bot.roles.highest.rawPosition;
+  guildDb.invites = inviteMap;
+
+  await guildDb.save();
 };

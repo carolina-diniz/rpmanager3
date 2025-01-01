@@ -1,15 +1,13 @@
 import { Role } from "discord.js";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import print from "../../print/print";
 
 export default async (role: Role) => {
-  print.init(__filename)
-  
-  const guildDb = await modelGuild.findOne({ id: role.guild.id });
+  print.init(__filename);
 
-  if (!guildDb) return;
+  const guildDb = await database.get("guild", role.guild);
 
-  guildDb.roles.delete(role.id);
+  guildDb?.roles.delete(role.id);
 
-  await guildDb.save();
+  await guildDb?.save();
 };

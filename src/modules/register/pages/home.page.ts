@@ -32,20 +32,20 @@ async function buttons(
         channelsCreated.isApprovalChannelCreated && channelsCreated.isEntryChannelCreated ? true : false,
     }),
     buttonConstructor({
-      customId: "register_editChannels",
+      customId: "register_editchannels",
       label: "Editar Canais",
       emoji: "✍️",
       disabled:
         channelsCreated.isApprovalChannelCreated || channelsCreated.isEntryChannelCreated ? false : true,
     }),
     buttonConstructor({
-      customId: "register_createRoles",
+      customId: "register_createroles",
       label: "Criar Cargos",
       emoji: "🛂",
       disabled: rolesCreated.EntryManager && rolesCreated.ApprovedMember ? true : false,
     }),
     buttonConstructor({
-      customId: "register_editRoles",
+      customId: "register_editroles",
       label: "Editar Cargos",
       emoji: "🛂",
       disabled: rolesCreated.EntryManager || rolesCreated.ApprovedMember ? false : true,

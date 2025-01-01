@@ -13,7 +13,7 @@ export default {
     "- Canal de Aprovação: Escolha um novo canal onde os moderadores poderão aprovar ou reprovar solicitações.\n\n" +
     "Utilize os botões abaixo para editar os canais ou voltar à configuração principal.",
   footer: {
-    text: "home/editChannels",
+    text: "home/editchannels",
   },
   buttons,
 };

@@ -1,4 +1,4 @@
-import modelGuild from "../../../core/database/models/guilds/modelGuild";
+import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 
 type channelCreatedResolvedType = {
@@ -16,14 +16,9 @@ export default async (guildId: string): Promise<channelCreatedResolvedType> => {
     isPermaDeathChannelCreated: false,
   };
 
-  const guildDb = await modelGuild.findOne({ id: guildId });
+  const guildDb = await database.get("guild", { id: guildId });
 
-  if (!guildDb) {
-    print.log(__filename, "Guild not found");
-    return channelsCreatedResolved;
-  }
-
-  guildDb.channels.forEach((channel) => {
+  guildDb?.channels.forEach((channel) => {
     if (channel.isEntryChannel) {
       channelsCreatedResolved.isEntryChannelCreated = true;
     }

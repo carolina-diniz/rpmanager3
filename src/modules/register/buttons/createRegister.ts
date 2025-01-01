@@ -9,7 +9,7 @@ import {
   TextChannel,
 } from "discord.js";
 import { eventEmitter, onBuffered } from "../../../core";
-import modelGuild from "../../../core/database/models/guilds/modelGuild";
+import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 import { genericPage } from "../../genericPage";
 
@@ -97,19 +97,17 @@ async function waitForChannelSave(channelId: string): Promise<void> {
 }
 
 async function saveIsEntryChannel(channel: TextChannel): Promise<void> {
-  const guildDb = await modelGuild.findOne({ id: channel.guild.id });
-
-  if (!guildDb) throw new Error("Guild not found");
-
-  const channelData = guildDb.channels.get(channel.id);
+  const guildDb = await database.get("guild", channel.guild);
+  const channelData = guildDb?.channels.get(channel.id);
 
   if (!channelData) throw new Error("Channel not found");
+  
   channelData.isEntryChannel = true;
 
-  guildDb.channels.set(channel.id, channelData);
-  guildDb.markModified("channels");
+  guildDb?.channels.set(channel.id, channelData);
+  guildDb?.markModified("channels");
 
-  await guildDb.save();
+  await guildDb?.save();
 }
 
 async function createRegisterMessage(channel: TextChannel, guildName: string): Promise<void> {

@@ -1,16 +1,14 @@
 import { Role } from "discord.js";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import print from "../../print/print";
 import { emitBuffered } from "../services";
 
 export default async (role: Role) => {
   print.init(__filename);
 
-  const guildDb = await modelGuild.findOne({ id: role.guild.id });
+  const guildDb = await database.get("guild", role.guild);
 
-  if (!guildDb) return;
-
-  guildDb.roles.set(role.id, {
+  guildDb?.roles.set(role.id, {
     id: role.id,
     name: role.name,
     rawPosition: role.rawPosition,
@@ -18,7 +16,7 @@ export default async (role: Role) => {
     ApprovedMember: false,
   });
 
-  await guildDb.save().then(() => {
-    emitBuffered('roleSaved', role.id)
+  await guildDb?.save().then(() => {
+    emitBuffered("roleSaved", role.id);
   });
 };

@@ -1,4 +1,4 @@
-import modelGuild from "../../../core/database/models/guilds/modelGuild";
+import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 
 type rolesCreatedResolvedType = {
@@ -14,14 +14,9 @@ export default async (guildId: string): Promise<rolesCreatedResolvedType> => {
     ApprovedMember: false,
   };
 
-  const guildDb = await modelGuild.findOne({ id: guildId });
+  const guildDb = await database.get("guild", { id: guildId });
 
-  if (!guildDb) {
-    print.log(__filename, "Guild not found");
-    return rolesCreatedResolved;
-  }
-
-  guildDb.roles.forEach((roles) => {
+  guildDb?.roles.forEach((roles) => {
     if (roles.EntryManager) {
       rolesCreatedResolved.EntryManager = true;
     }

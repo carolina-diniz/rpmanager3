@@ -14,7 +14,7 @@ export default {
     "- Cargo de Aprovação: Utilizado para moderadores aprovarem as solicitações. (Por enquanto, ficará desativado.)\n\n" +
     "Utilize os botões abaixo para criar os cargos ou voltar à configuração principal.",
   footer: {
-    text: "home/createRoles",
+    text: "home/createroles",
   },
   buttons,
 };

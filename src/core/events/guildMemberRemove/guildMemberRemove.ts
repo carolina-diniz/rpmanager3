@@ -1,13 +1,17 @@
 import { GuildMember, PartialGuildMember } from "discord.js";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import print from "../../print/print";
 
 export default async (member: GuildMember | PartialGuildMember) => {
-  print.init(__filename)
+  try {
+    print.init(__filename);
 
-  const guildDb = await modelGuild.findOne({ id: member.guild.id });
+    const guildDb = await database.get("guild", member.guild);
 
-  guildDb?.members.delete(member.id);
+    guildDb?.members.delete(member.id);
 
-  await guildDb?.save();
+    await guildDb?.save();
+  } catch (error) {
+    print.error(__filename, error);
+  }
 };

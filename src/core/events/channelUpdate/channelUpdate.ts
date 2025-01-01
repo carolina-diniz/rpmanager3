@@ -1,27 +1,28 @@
 import { DMChannel, NonThreadGuildBasedChannel } from "discord.js";
-import modelGuild from "../../database/models/guilds/modelGuild";
+import database from "../../database/database";
 import print from "../../print/print";
 
 export default async (
   oldChannel: DMChannel | NonThreadGuildBasedChannel,
   newChannel: DMChannel | NonThreadGuildBasedChannel
 ) => {
-  print.init(__filename)
+  try {
+    print.init(__filename);
 
-  if (newChannel.isDMBased()) return;
+    if (newChannel.isDMBased()) return;
 
-  const guildDb = await modelGuild.findOne({ id: newChannel.guildId });
+    const guildDb = await database.get("guild", newChannel.guild);
+    const channelDb = guildDb?.channels.get(newChannel.id);
+    if (!channelDb) return;
 
-  if (!guildDb) return;
+    channelDb.name = newChannel.name;
+    channelDb.parentId = newChannel.parentId;
+    channelDb.position = newChannel.position;
 
-  const channelDb = guildDb.channels.get(newChannel.id);
+    guildDb?.channels.set(newChannel.id, channelDb);
 
-  if (!channelDb) return;
-
-  (channelDb.name = newChannel.name),
-    (channelDb.parentId = newChannel.parentId),
-    (channelDb.position = newChannel.position),
-    guildDb.channels.set(newChannel.id, channelDb);
-
-  await guildDb.save();
+    await guildDb?.save();
+  } catch (error) {
+    print.error(__filename, error);
+  }
 };
