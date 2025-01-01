@@ -20,7 +20,7 @@ export default {
 };
 
 async function buttons(interaction: CommandInteraction | ButtonInteraction): Promise<ActionRowBuilder<ButtonBuilder>> {
-  const rolesCreated = await getRolesCreated(interaction.guild!.id)
+  const rolesCreated = await getRolesCreated(interaction.guild!)
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     buttonConstructor({
       customId: "createroles_createapproved",
