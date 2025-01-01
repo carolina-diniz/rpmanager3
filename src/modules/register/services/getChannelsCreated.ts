@@ -1,3 +1,4 @@
+import { Guild } from "discord.js";
 import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 
@@ -7,7 +8,7 @@ type channelCreatedResolvedType = {
   isPermaDeathChannelCreated: boolean;
 };
 
-export default async (guildId: string): Promise<channelCreatedResolvedType> => {
+export default async (guild: Guild): Promise<channelCreatedResolvedType> => {
   print.init(__filename);
 
   const channelsCreatedResolved: channelCreatedResolvedType = {
@@ -16,7 +17,7 @@ export default async (guildId: string): Promise<channelCreatedResolvedType> => {
     isPermaDeathChannelCreated: false,
   };
 
-  const guildDb = await database.get("guild", { id: guildId });
+  const guildDb = await database.get("guild", guild);
 
   guildDb?.channels.forEach((channel) => {
     if (channel.isEntryChannel) {

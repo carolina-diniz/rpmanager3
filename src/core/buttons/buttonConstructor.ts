@@ -9,11 +9,9 @@ export type buttonsConstructorType = {
   disabled?: boolean;
 };
 
-
-
 export default (data: buttonsConstructorType): ButtonBuilder => {
+  print.init(__filename);
   const { customId, label, emoji, buttonStyle = ButtonStyle.Primary, disabled = false } = data;
-  print.log(__filename, `Building ${customId}`);
 
   const button = new ButtonBuilder()
     .setCustomId(customId.toLowerCase())

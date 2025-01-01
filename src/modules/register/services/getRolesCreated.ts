@@ -1,3 +1,4 @@
+import { Guild } from "discord.js";
 import database from "../../../core/database/database";
 import print from "../../../core/print/print";
 
@@ -6,7 +7,7 @@ type rolesCreatedResolvedType = {
   ApprovedMember: boolean;
 };
 
-export default async (guildId: string): Promise<rolesCreatedResolvedType> => {
+export default async (guild: Guild): Promise<rolesCreatedResolvedType> => {
   print.init(__filename);
 
   const rolesCreatedResolved: rolesCreatedResolvedType = {
@@ -14,7 +15,7 @@ export default async (guildId: string): Promise<rolesCreatedResolvedType> => {
     ApprovedMember: false,
   };
 
-  const guildDb = await database.get("guild", { id: guildId });
+  const guildDb = await database.get("guild", guild);
 
   guildDb?.roles.forEach((roles) => {
     if (roles.EntryManager) {

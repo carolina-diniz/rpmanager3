@@ -20,7 +20,7 @@ export default {
 async function buttons(
   interaction: CommandInteraction | ButtonInteraction
 ): Promise<ActionRowBuilder<ButtonBuilder>> {
-  const channelsCreated = await getChannelsCreated(interaction.guild!.id);
+  const channelsCreated = await getChannelsCreated(interaction.guild!);
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     buttonConstructor({
       customId: "createchannels_entrychannel",

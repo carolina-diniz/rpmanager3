@@ -1,4 +1,4 @@
 EntryManager (Cargo para quem aprova a entrada).
-ApprovedUser (Usuário com entrada aprovada).
+ApprovedMember (Usuário com entrada aprovada).
 EntryChannel - Registro de Personagem (Canal onde a pessoa insere informações do personagem).
 ApprovalChannel - Aprovação de Personagem (Canal onde as informações são revisadas).
