@@ -26,11 +26,12 @@ export default {
       name,
       memberCount,
       ownerId,
-      prefix: "!",
+      prefix: "[N]",
       color: null,
       botRawPosition: bot.roles.highest.rawPosition,
       channels: channelMap,
       roles: roleMap,
+      gameId: null,
       invites: inviteMap,
       members: membersMap,
     };
@@ -121,6 +122,9 @@ export async function createMemberMap(guild: Guild): Promise<Map<string, members
         manageable: member.manageable,
         moderatable: member.moderatable,
         bannable: member.bannable,
+        gameId: null,
+        entryManager: false,
+        approvedMember: false,
       };
 
       memberMap.set(member.id, data);

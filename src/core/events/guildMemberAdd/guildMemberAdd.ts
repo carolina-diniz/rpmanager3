@@ -19,6 +19,9 @@ export default async (member: GuildMember) => {
       manageable: member.manageable,
       moderatable: member.moderatable,
       bannable: member.bannable,
+      gameId: null,
+      entryManager: false,
+      approvedMember: false,
     };
 
     guildDb?.members.set(member.id, memberData);

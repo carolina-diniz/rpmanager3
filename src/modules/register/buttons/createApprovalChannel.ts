@@ -8,7 +8,7 @@ export async function execute(interaction: ButtonInteraction) {
   print.log(__filename, "starting execution");
 
   const { guild, channel: interactionChannel } = interaction;
-  const channelName = "Aprovação de Personagem";
+  const channelName = "Aprovação";
 
   if (!guild) {
     print.error(__filename, "Guild not found in interaction");

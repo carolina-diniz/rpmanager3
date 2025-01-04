@@ -1,7 +1,7 @@
 import { Guild } from "discord.js";
 import { client } from "../../../connections";
 import storage from "../../../storage";
-import database from "../../database/database";
+import modelGuild from "../../database/models/guilds/modelGuild";
 import deployCommands from "../../deployCommands/deployCommands";
 import print from "../../print/print";
 import guildService, { createInviteMap } from "../services/guild.service";
@@ -11,9 +11,7 @@ export default async (guild: Guild) => {
 
   const { id, name, memberCount, ownerId } = guild;
 
-  const guildDb = await database.get("guild", guild);
-  const inviteMap = await createInviteMap(guild);
-  const bot = await guild.members.fetch(client.user!.id);
+  const guildDb = await modelGuild.findOne({ id: guild.id });
 
   if (await storage.remoteConfig.deployCommands()) {
     print.log(__filename, `deploying commands to guild: ${guild.name}`);
@@ -25,6 +23,9 @@ export default async (guild: Guild) => {
     await guildService.createAtDatabase(guild);
     return;
   }
+
+  const inviteMap = await createInviteMap(guild);
+  const bot = await guild.members.fetch(client.user!.id);
 
   guildDb.name = name;
   guildDb.memberCount = memberCount;

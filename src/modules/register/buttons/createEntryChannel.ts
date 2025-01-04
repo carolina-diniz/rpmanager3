@@ -17,7 +17,7 @@ export async function execute(interaction: ButtonInteraction) {
   print.log(__filename, "starting execution");
 
   const { guild, channel: interactionChannel } = interaction;
-  const channelName = "Registro de Personagem";
+  const channelName = "Registro";
 
   if (!guild) {
     print.error(__filename, "Guild not found in interaction");
@@ -101,7 +101,7 @@ async function saveIsEntryChannel(channel: TextChannel): Promise<void> {
   const channelData = guildDb?.channels.get(channel.id);
 
   if (!channelData) throw new Error("Channel not found");
-  
+
   channelData.isEntryChannel = true;
 
   guildDb?.channels.set(channel.id, channelData);
@@ -110,9 +110,10 @@ async function saveIsEntryChannel(channel: TextChannel): Promise<void> {
   await guildDb?.save();
 }
 
-async function createRegisterMessage(channel: TextChannel, guildName: string): Promise<void> {
+export async function createRegisterMessage(channel: TextChannel, guildName: string): Promise<void> {
   const embedMessage = new EmbedBuilder()
     .setTitle(`REGISTRO ~ ${guildName.toUpperCase()}`)
+    .setThumbnail(channel.guild.iconURL())
     .setDescription(
       `Bem-vindo ao sistema de registro do ${guildName}!\n` +
         `Preencha com suas informações do jogo e evite compartilhar dados pessoais.\n\n` +
@@ -120,7 +121,7 @@ async function createRegisterMessage(channel: TextChannel, guildName: string): P
     );
 
   const start = new ButtonBuilder()
-    .setCustomId("createregister_start")
+    .setCustomId("register_start")
     .setLabel("Iniciar")
     .setStyle(ButtonStyle.Success)
     .setEmoji({ name: "✅" });

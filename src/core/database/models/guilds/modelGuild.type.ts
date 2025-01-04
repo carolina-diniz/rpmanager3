@@ -33,6 +33,9 @@ export interface membersSchema {
   manageable: boolean;
   moderatable: boolean;
   bannable: boolean;
+  gameId: string | null;
+  entryManager: boolean;
+  approvedMember: boolean;
 }
 
 export interface ModelGuild {

@@ -36,6 +36,9 @@ const membersSchema = {
   manageable: Boolean,
   moderatable: Boolean,
   bannable: Boolean,
+  gameId: String || null,
+  entryManager: Boolean,
+  approvedMember: Boolean,
 }
 
 const schema: Schema<ModelGuild> = new Schema({
