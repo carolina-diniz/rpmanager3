@@ -1,10 +1,10 @@
 export default {
   init: (path: string) => {
-    const fileName = getFileName(path);
+    const fileName = 'teste'//getFileName(path);
     console.log(`[${fileName}] starting executing`);
   },
   log: (path: string, message: string) => {
-    let fileName = getFileName(path);
+    let fileName = 'teste'//getFileName(path);
 
     switch (fileName) {
       case "events":
@@ -16,7 +16,7 @@ export default {
     console.log(`[${fileName}] ${message}`);
   },
   error: (path: string, message: string | unknown, error?: unknown) => {
-    const fileName = getFileName(path);
+    const fileName = 'teste'//getFileName(path);
     console.log("***********");
     if (message && error) {
       console.error(`[${fileName}] ${message ?? ""}`, error ?? "");
@@ -26,7 +26,7 @@ export default {
     console.log("***********");
   },
   warn: (path: string, message: string, error?: unknown) => {
-    const fileName = getFileName(path);
+    const fileName = 'teste'//getFileName(path);
     console.log(`[${fileName}] ${message}`);
     if (error) {
       console.warn(error);
