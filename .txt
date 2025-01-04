@@ -1,4 +1,1 @@
-EntryManager (Cargo para quem aprova a entrada).
-ApprovedMember (Usuário com entrada aprovada).
-EntryChannel - Registro de Personagem (Canal onde a pessoa insere informações do personagem).
-ApprovalChannel - Aprovação de Personagem (Canal onde as informações são revisadas).
+logger para discord

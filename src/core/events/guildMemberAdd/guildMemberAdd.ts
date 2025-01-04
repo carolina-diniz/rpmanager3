@@ -27,6 +27,8 @@ export default async (member: GuildMember) => {
     guildDb?.members.set(member.id, memberData);
 
     await guildDb?.save();
+
+    print.log(__filename, `adding member: ${member.user.username}`, member.guild, member.user);
   } catch (error) {
     print.error(__filename, error);
   }

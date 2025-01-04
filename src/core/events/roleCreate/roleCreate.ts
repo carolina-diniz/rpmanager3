@@ -18,5 +18,6 @@ export default async (role: Role) => {
 
   await guildDb?.save().then(() => {
     emitBuffered("roleSaved", role.id);
+    print.log(__filename, `adding role: ${role.name}`, role.guild);
   });
 };

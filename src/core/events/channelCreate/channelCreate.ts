@@ -1,13 +1,13 @@
 import { NonThreadGuildBasedChannel } from "discord.js";
 import { channelsSchema } from "../../database";
+import modelGuild from "../../database/models/guilds/modelGuild";
 import print from "../../print/print";
 import { emitBuffered } from "../services";
-import guildService from "../services/guild.service";
 
 export default async (channel: NonThreadGuildBasedChannel) => {
   print.init(__filename);
 
-  const guildDb = await guildService.getAtDatabase(channel.guildId);
+  const guildDb = await modelGuild.findOne({ id: channel.guild.id });
 
   const channelData: channelsSchema = {
     id: channel.id,
@@ -24,5 +24,6 @@ export default async (channel: NonThreadGuildBasedChannel) => {
 
   await guildDb?.save().then(() => {
     emitBuffered("channelSaved", channel.id);
+    print.log(__filename, `Channel ${channel.name} saved`, channel.guild);
   });
 };

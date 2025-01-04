@@ -14,12 +14,12 @@ export default async (guild: Guild) => {
   const guildDb = await modelGuild.findOne({ id: guild.id });
 
   if (await storage.remoteConfig.deployCommands()) {
-    print.log(__filename, `deploying commands to guild: ${guild.name}`);
+    print.log(__filename, `deploying commands to guild: ${guild.name}`, guild);
     await deployCommands(client.user!.id, { id, name });
   }
 
   if (!guildDb) {
-    print.log(__filename, `creating new guild: ${guild.name}`);
+    print.log(__filename, `creating new guild: ${guild.name}`, guild);
     await guildService.createAtDatabase(guild);
     return;
   }
@@ -34,4 +34,6 @@ export default async (guild: Guild) => {
   guildDb.invites = inviteMap;
 
   await guildDb.save();
+
+  print.log(__filename, `updating guild: ${guild.name}`, guild);
 };

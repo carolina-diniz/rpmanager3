@@ -11,6 +11,8 @@ export default async (member: GuildMember | PartialGuildMember) => {
     guildDb?.members.delete(member.id);
 
     await guildDb?.save();
+
+    print.log(__filename, `deleting member: ${member.user.username}`, member.guild, member.user);
   } catch (error) {
     print.error(__filename, error);
   }

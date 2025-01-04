@@ -11,7 +11,12 @@ export default async (interaction: Interaction<CacheType>) => {
     if (interaction.isCommand()) {
       const { commandName } = interaction;
 
-      print.log(__filename, `[command] (${commandName}) <user: ${interaction.user.username}>`);
+      print.log(
+        __filename,
+        `[command] (${commandName}) <user: ${interaction.user.username}>`,
+        interaction.guild,
+        interaction.user
+      );
 
       if (commandName in commands) {
         print.log(__filename, `${commandName} is in commands object`);
@@ -23,7 +28,12 @@ export default async (interaction: Interaction<CacheType>) => {
     if (interaction.isButton()) {
       const { customId } = interaction;
 
-      print.log(__filename, `Button: ${customId} user: ${interaction.user.displayName}`);
+      print.log(
+        __filename,
+        `Button: ${customId} user: ${interaction.user.displayName}`,
+        interaction.guild,
+        interaction.user
+      );
 
       if (customId in buttons) {
         print.log(__filename, `${customId} is in buttons object`);
@@ -35,7 +45,12 @@ export default async (interaction: Interaction<CacheType>) => {
     if (interaction.isModalSubmit()) {
       const { customId } = interaction;
 
-      print.log(__filename, `Modal Submit: ${customId} user: ${interaction.user.displayName}`);
+      print.log(
+        __filename,
+        `Modal Submit: ${customId} user: ${interaction.user.displayName}`,
+        interaction.guild,
+        interaction.user
+      );
 
       if (customId in submit) {
         print.log(__filename, `${customId} is in submit object`);

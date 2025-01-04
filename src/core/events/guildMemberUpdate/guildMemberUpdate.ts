@@ -23,6 +23,8 @@ export default async (oldMember: GuildMember | PartialGuildMember, newMember: Gu
     guildDb?.members.set(newMember.id, memberDb);
 
     await guildDb?.save();
+
+    print.log(__filename, `updating member: ${newMember.user.username}`, newMember.guild);
   } catch (error) {
     print.error(__filename, error);
   }

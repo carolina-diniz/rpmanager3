@@ -12,4 +12,6 @@ export default async (channel: DMChannel | GuildChannel) => {
   guildDb?.channels.delete(channel.id);
 
   await guildDb?.save();
+
+  print.log(__filename, `Channel ${channel.name} deleted`, channel.guild);
 };

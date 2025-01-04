@@ -22,6 +22,8 @@ export default async (
     guildDb?.channels.set(newChannel.id, channelDb);
 
     await guildDb?.save();
+
+    print.log(__filename, `Channel ${newChannel.name} updated`, newChannel.guild);
   } catch (error) {
     print.error(__filename, error);
   }

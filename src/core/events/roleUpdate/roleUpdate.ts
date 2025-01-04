@@ -24,4 +24,6 @@ export default async (oldRole: Role) => {
   });
 
   await guildDb?.save();
+
+  print.log(__filename, `updating role: ${role.name}`, role.guild);
 };

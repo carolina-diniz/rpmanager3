@@ -10,4 +10,6 @@ export default async (role: Role) => {
   guildDb?.roles.delete(role.id);
 
   await guildDb?.save();
+
+  print.log(__filename, `deleting role: ${role.name}`, role.guild);
 };
