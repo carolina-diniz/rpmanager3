@@ -1,7 +1,7 @@
 export default {
   init: (path: string) => {
     const fileName = getFileName(path);
-    console.log(`[${fileName}] starting executing`);
+    console.log(`[${fileName}] starting executing <.${path.split("rpmanager3")[1]}>`);
   },
   log: (path: string, message: string) => {
     let fileName = getFileName(path);
