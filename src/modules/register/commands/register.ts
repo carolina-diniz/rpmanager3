@@ -8,7 +8,23 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   print.init(__filename);
-  
+
+  const member = await interaction.guild?.members.fetch(interaction.user.id);
+
+  if (!member?.permissions.has("Administrator")) {
+    print.log(
+      __filename,
+      "User does not have the required permissions to use this command.",
+      interaction.guild,
+      member?.user
+    );
+
+    return interaction.reply({
+      content: "You do not have the required permissions to use this command.",
+      ephemeral: true,
+    });
+  }
+
   await interaction.deferReply();
 
   const { title, description, footer, buttons } = genericPageContent.home;
