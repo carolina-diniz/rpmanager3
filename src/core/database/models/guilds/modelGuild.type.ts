@@ -1,4 +1,5 @@
 import { ChannelType } from "discord.js";
+import { Document, Types } from "mongoose";
 
 export interface channelsSchema {
   id: string;
@@ -51,3 +52,6 @@ export interface ModelGuild {
   invites: Map<string, invitesSchema>;
   members: Map<string, membersSchema>;
 }
+
+export type GuildDataType = Document<unknown, {}, ModelGuild> &
+  ModelGuild & { _id: Types.ObjectId } & { __v: number };
