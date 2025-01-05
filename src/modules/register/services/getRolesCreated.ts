@@ -22,7 +22,7 @@ export default async (guild: Guild): Promise<rolesCreatedResolvedType> => {
       rolesCreatedResolved.EntryManager = true;
     }
     if (roles.ApprovedMember) {
-      rolesCreatedResolved.EntryManager = true;
+      rolesCreatedResolved.ApprovedMember = true;
     }
   });
 

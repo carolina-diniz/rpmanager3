@@ -42,7 +42,7 @@ async function buttons(
       customId: "register_createroles",
       label: "Criar Cargos",
       emoji: "🛂",
-      disabled: rolesCreated.EntryManager && rolesCreated.ApprovedMember ? true : false,
+      disabled: rolesCreated.EntryManager || rolesCreated.ApprovedMember ? true : false,
     }),
     buttonConstructor({
       customId: "register_editroles",
