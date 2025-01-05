@@ -35,8 +35,8 @@ async function buttons(
       customId: "register_editchannels",
       label: "Editar Canais",
       emoji: "✍️",
-      disabled:
-        channelsCreated.isApprovalChannelCreated || channelsCreated.isEntryChannelCreated ? false : true,
+      disabled: true,
+      //channelsCreated.isApprovalChannelCreated || channelsCreated.isEntryChannelCreated ? false : true,
     }),
     buttonConstructor({
       customId: "register_createroles",
@@ -48,7 +48,7 @@ async function buttons(
       customId: "register_editroles",
       label: "Editar Cargos",
       emoji: "🛂",
-      disabled: rolesCreated.EntryManager || rolesCreated.ApprovedMember ? false : true,
+      disabled: true, //rolesCreated.EntryManager || rolesCreated.ApprovedMember ? false : true,
     }),
     general.close
   );
