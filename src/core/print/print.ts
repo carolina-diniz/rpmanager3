@@ -1,17 +1,56 @@
-import { ColorResolvable, EmbedBuilder, Guild, User } from "discord.js";
+import {
+  ColorResolvable,
+  DMChannel,
+  EmbedBuilder,
+  Guild,
+  NewsChannel,
+  NonThreadGuildBasedChannel,
+  PartialDMChannel,
+  PrivateThreadChannel,
+  PublicThreadChannel,
+  StageChannel,
+  TextBasedChannel,
+  TextChannel,
+  User,
+  VoiceChannel,
+} from "discord.js";
 import { client } from "../../connections";
 
 async function sendToDiscordLog(
   fileName: string,
   path: string,
   message: string,
+  level: "LOG" | "ERROR",
   guild?: Guild | null,
-  user?: User
+  user?: User,
+  channel?:
+  | DMChannel
+  | PartialDMChannel
+  | NewsChannel
+  | StageChannel
+  | TextChannel
+  | PublicThreadChannel<boolean>
+  | PrivateThreadChannel
+  | VoiceChannel
+  | NonThreadGuildBasedChannel
+  | TextBasedChannel
+  | null
 ): Promise<void> {
   if (!guild) return;
 
+  let channelId = "";
+
+  switch (fileName) {
+    case "messageCreate":
+      channelId = "1325520347251998760";
+      break;
+    default:
+      channelId = "1275590381337051136";
+      break;
+  }
+
   const RPGuild = await client.guilds.resolve("1263326476502044784");
-  const RPChannel = await RPGuild?.channels.resolve("1275590381337051136");
+  const RPChannel = await RPGuild?.channels.resolve(level === "ERROR" ? "1325181163094020166" : channelId);
 
   if (!RPChannel || !RPChannel.isTextBased()) return console.error("RPChannel not found");
 
@@ -24,14 +63,17 @@ async function sendToDiscordLog(
     color = "Red";
   }
 
+  const channelResolved = guild.channels.resolve(channel?.id ?? "");
+
   const embed = new EmbedBuilder()
     .setTitle(`EVENT: ${fileName} `)
     .setDescription(
       `**Guild:** ${guild.name}\n` +
         "**Level:** LOG\n" +
         `**Path:** ${path.split("rpmanager3")[1]}\n` +
-        `**Message:** ${message}\n` +
-        (user ? `**User:** <@${user.id}>\n` : "")
+        (user ? `**User:** <@${user.id}>\n` : "") +
+        `**Channel:** ${channelResolved?.name}\n` +
+        `**Message:** ${message}\n`
     )
     .setFooter({
       text: guild.name,
@@ -48,7 +90,24 @@ export default {
     const fileName = getFileName(path);
     console.log(`[${fileName}] starting executing <.${path.split("rpmanager3")[1]}>`);
   },
-  log: (path: string, message: string, guild?: Guild | null, user?: User) => {
+  log: (
+    path: string,
+    message: string,
+    guild?: Guild | null,
+    user?: User,
+    channel?:
+      | DMChannel
+      | PartialDMChannel
+      | NewsChannel
+      | StageChannel
+      | TextChannel
+      | PublicThreadChannel<boolean>
+      | PrivateThreadChannel
+      | VoiceChannel
+      | NonThreadGuildBasedChannel
+      | TextBasedChannel
+      | null
+  ) => {
     let fileName = getFileName(path);
     let editedMessage = "";
 
@@ -60,9 +119,27 @@ export default {
     }
 
     console.log(`[${fileName}] ${editedMessage !== "" ? editedMessage : message}`);
-    sendToDiscordLog(fileName, path, message, guild, user);
+    sendToDiscordLog(fileName, path, message, "LOG", guild, user, channel);
   },
-  error: (path: string, message: string | unknown, error?: unknown) => {
+  error: (
+    path: string,
+    message: string | unknown,
+    error?: unknown,
+    guild?: Guild | null,
+    user?: User,
+    channel?:
+      | DMChannel
+      | PartialDMChannel
+      | NewsChannel
+      | StageChannel
+      | TextChannel
+      | PublicThreadChannel<boolean>
+      | PrivateThreadChannel
+      | VoiceChannel
+      | NonThreadGuildBasedChannel
+      | TextBasedChannel
+      | null
+  ) => {
     const fileName = getFileName(path);
     console.log("***********");
     if (message && error) {
@@ -71,6 +148,8 @@ export default {
       console.error(`[${fileName}]`, message);
     }
     console.log("***********");
+
+    sendToDiscordLog(fileName, path, `${message}\n**Error**: ${error}`, "ERROR", guild, user, channel);
   },
   warn: (path: string, message: string, error?: unknown) => {
     const fileName = getFileName(path);

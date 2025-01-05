@@ -15,7 +15,8 @@ export default async (interaction: Interaction<CacheType>) => {
         __filename,
         `[command] (${commandName}) <user: ${interaction.user.username}>`,
         interaction.guild,
-        interaction.user
+        interaction.user,
+        interaction.channel
       );
 
       if (commandName in commands) {
@@ -32,7 +33,8 @@ export default async (interaction: Interaction<CacheType>) => {
         __filename,
         `Button: ${customId} user: ${interaction.user.displayName}`,
         interaction.guild,
-        interaction.user
+        interaction.user,
+        interaction.channel
       );
 
       if (customId in buttons) {
@@ -49,7 +51,8 @@ export default async (interaction: Interaction<CacheType>) => {
         __filename,
         `Modal Submit: ${customId} user: ${interaction.user.displayName}`,
         interaction.guild,
-        interaction.user
+        interaction.user,
+        interaction.channel
       );
 
       if (customId in submit) {
@@ -59,6 +62,6 @@ export default async (interaction: Interaction<CacheType>) => {
       }
     }
   } catch (error) {
-    print.error(__filename, error);
+    print.error(__filename, null, error, interaction.guild, interaction.user, interaction.channel);
   }
 };

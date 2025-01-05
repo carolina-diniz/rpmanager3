@@ -6,5 +6,5 @@ export default async (message: OmitPartialGroupDMChannel<Message<boolean>>) => {
 
   if (message.author.bot) return;
 
-  print.log(__filename, `message: ${message.content}`, message.guild, message.member?.user);
+  print.log(__filename, `content: ${message.content}`, message.guild, message.member?.user, message.channel);
 };

@@ -26,6 +26,6 @@ export default async (member: GuildMember | PartialGuildMember) => {
 
     print.log(__filename, `updating member: ${member.user.username}`, member.guild, member.user);
   } catch (error) {
-    print.error(__filename, error);
+    print.error(__filename, null, error, member.guild, member.user);
   }
 };

@@ -30,6 +30,6 @@ export default async (member: GuildMember) => {
 
     print.log(__filename, `adding member: ${member.user.username}`, member.guild, member.user);
   } catch (error) {
-    print.error(__filename, error);
+    print.error(__filename, null, error, member.guild, member.user);
   }
 };
