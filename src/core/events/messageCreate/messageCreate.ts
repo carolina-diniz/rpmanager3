@@ -9,7 +9,7 @@ export default async (message: OmitPartialGroupDMChannel<Message<boolean>>) => {
 
     print.log(
       __filename,
-      `content: ${message.content}`,
+      `content: \n${message.content}`,
       message.guild,
       message.member?.user,
       message.channel

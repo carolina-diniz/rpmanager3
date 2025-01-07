@@ -1,8 +1,29 @@
 import { ActionRowBuilder, TextInputBuilder } from "@discordjs/builders";
 import { ButtonInteraction, ModalBuilder, TextInputStyle } from "discord.js";
+import getChannelsCreated from "../services/getChannelsCreated";
+import getRolesCreated from "../services/getRolesCreated";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
+    const channelsCreated = await getChannelsCreated(interaction.guild!);
+    const rolesCreated = await getRolesCreated(interaction.guild!);
+
+    if (!channelsCreated.isApprovalChannelCreated) {
+      await interaction.reply({
+        content: "Canal de aprovação não foi criado, use o comando /register para criar o canal de aprovação.",
+        ephemeral: true,
+      });
+      return;
+    }
+
+    if(!rolesCreated.ApprovedMember) {
+      await interaction.reply({
+        content: "Cargo de membro aprovado não foi criado, use o comando /register para criar o cargo de membro aprovado.",
+        ephemeral: true,
+      });
+      return;
+    }
+
     const modal = new ModalBuilder()
       .setCustomId("register_start")
       .setTitle(`REGISTRO - ${interaction.guild?.name.toUpperCase()}`);
@@ -41,6 +62,6 @@ export async function execute(interaction: ButtonInteraction) {
     modal.addComponents(row1, row2, row3);
     await interaction.showModal(modal);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
