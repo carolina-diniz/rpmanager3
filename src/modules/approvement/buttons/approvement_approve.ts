@@ -45,7 +45,7 @@ export async function execute(interaction: ButtonInteraction) {
       print.error(__filename, error)
     );
 
-    if (nickname && nickname.length > 2) {
+    if (nickname) {
       embed
         .setTitle("ENTRADA APROVADA")
         .setDescription(null)
