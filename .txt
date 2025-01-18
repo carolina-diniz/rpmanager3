@@ -15,6 +15,9 @@ Cria o service para criar os documentos a cada aprovação
 [x] KAWO-0004:
 fix(approvement): arruma o recruiter enviado para o banco de dados
 
-[] KAWO-0005:
+[x] KAWO-0005:
+fix(approvement): arruma o recruiter
+
+[] KAWO-0006:
 Cria a logica para pegar os recrutamentos através de botões
 
