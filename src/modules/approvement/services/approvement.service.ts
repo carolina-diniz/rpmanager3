@@ -1,4 +1,12 @@
-import { ButtonInteraction, ColorResolvable, EmbedBuilder, Guild, GuildMember, Message } from "discord.js";
+import {
+  ButtonInteraction,
+  ColorResolvable,
+  EmbedBuilder,
+  Guild,
+  GuildMember,
+  Message,
+  Role,
+} from "discord.js";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import { approvementContent } from "../buttons/content";
 
@@ -74,7 +82,7 @@ export const ApprovementService = {
       const guildDb = await modelGuild.findOne({ id: message?.guild?.id });
       const prefixRole = guildDb?.prefix!;
 
-      nickName = `${prefixRole} ${name} | ${gameId}`
+      nickName = `${prefixRole} ${name} | ${gameId}`;
     }
 
     if (entry === "reject") {
@@ -87,5 +95,24 @@ export const ApprovementService = {
     } catch (error) {
       throw error;
     }
+  },
+
+  getUsefullGuildRoles: async (guildId: string): Promise<{ entryRole: string }> => {
+    const guildDb = await modelGuild.findOne({ id: guildId });
+    let entryRole = "";
+
+    guildDb?.roles.forEach((roles) => {
+      if (roles.ApprovedMember) {
+        entryRole = roles.id;
+      }
+    });
+
+    return {
+      entryRole,
+    };
+  },
+
+  getRole: async (roleId: string, guild: Guild): Promise<Role | null> => {
+    return await guild.roles.fetch(roleId);
   },
 };

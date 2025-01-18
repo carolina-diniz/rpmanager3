@@ -27,7 +27,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     await interaction.update({
       embeds: [embed],
-      //components: [],
+      components: [],
     });
   } catch (error) {
     print.error(__filename, error);

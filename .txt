@@ -2,3 +2,7 @@ CARDS
 
 KAWO-0000:
 Adicionar o setNickname ao usuário aprovado
+
+KAWO-0001:
+Reestrutura os botões de approvement para usar o service.
+
