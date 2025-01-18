@@ -5,7 +5,7 @@ interface modelRecruitment {
   guildId: string;
   recruiterId: string;
   recruiterNickname: string
-  recruiterGameId: string;
+  recruiterGameId: string | null | undefined;
   recruitedId: string;
   createdAt: Date;
 }
@@ -29,7 +29,7 @@ const schema: Schema<modelRecruitment> = new Schema({
     required: true,
   },
   recruiterGameId: {
-    type: String,
+    type: String || null || undefined,
     required: true,
   },
   recruitedId: {
