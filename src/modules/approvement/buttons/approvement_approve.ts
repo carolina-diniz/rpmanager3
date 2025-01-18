@@ -2,6 +2,7 @@ import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
 import { ApprovementService } from "../services";
+import { RecruitmentService } from "../services/recruitment.service";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
@@ -60,6 +61,8 @@ export async function execute(interaction: ButtonInteraction) {
     }
 
     await updateMember(target, gameId);
+
+    await RecruitmentService.createRecruitment(guild!, target, staff);
 
     await interaction.update({
       embeds: [embed],

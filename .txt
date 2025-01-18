@@ -6,10 +6,10 @@ Adicionar o setNickname ao usuário aprovado
 [x] KAWO-0001:
 Reestrutura os botões de approvement para usar o service.
 
-[] KAWO-0002:
+[x] KAWO-0002:
 Cria o modal para recruitment
 
-[] KAWO-0003:
+[x] KAWO-0003:
 Cria o service para criar os documentos a cada aprovação
 
 [] KAWO-0004:
