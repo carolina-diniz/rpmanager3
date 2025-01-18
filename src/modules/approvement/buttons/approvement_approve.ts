@@ -62,7 +62,14 @@ export async function execute(interaction: ButtonInteraction) {
 
     await updateMember(target, gameId);
 
-    await RecruitmentService.createRecruitment(guild!, target, staff);
+    const recruiterId = message.embeds[0].fields.filter((data) => data.name === "Recrutador")[0]?.value;
+    const recruiter = await ApprovementService.getTarget(recruiterId, guild!, embed).catch((error) =>
+      console.error(error)
+    );
+
+    if (recruiter) {
+      await RecruitmentService.createRecruitment(guild!, target, recruiter);
+    }
 
     await interaction.update({
       embeds: [embed],
