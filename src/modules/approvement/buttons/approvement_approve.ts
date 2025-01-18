@@ -42,8 +42,8 @@ export async function execute(interaction: ButtonInteraction) {
       await addMotoclubRole(interaction, target, embed);
     }
 
-    const nickname = await setNickname(interaction, target, embed).catch((error) =>
-      print.error(__filename, error)
+    const nickname = await ApprovementService.setNickname("approved", target, interaction.message).catch(
+      (error) => print.error(__filename, error)
     );
 
     if (nickname) {
@@ -138,41 +138,6 @@ async function getEntryRole(guild: Guild): Promise<Role | null> {
   }
 
   return null;
-}
-
-export async function setNickname(
-  interaction: ButtonInteraction,
-  target: GuildMember,
-  embed: EmbedBuilder
-): Promise<string[]> {
-  return new Promise(async (resolve, reject) => {
-    let name = interaction.message.embeds[0].fields.filter((data) => data.name === "Nome")[0].value;
-    let gameId = interaction.message.embeds[0].fields.filter((data) => data.name === "ID")[0].value;
-    const names = name.trim().split(" ");
-
-    if (names.length > 1) {
-      const firstName = names[0].charAt(0).toUpperCase() + names[0].slice(1).toLowerCase();
-      const lastName = names[1].charAt(0).toUpperCase() + names[1].slice(1).toLowerCase();
-      name = `${firstName} ${lastName}`;
-    }
-
-    const guildDb = await modelGuild.findOne({ id: interaction.guild!.id });
-    const prefixRole = guildDb?.prefix!;
-
-    try {
-      await target.setNickname(`${prefixRole} ${name} | ${gameId}`);
-      resolve([name, gameId, `${prefixRole} ${name} | ${gameId}`]);
-    } catch (error) {
-      embed
-        .setTitle("MISSING PERMISSIONS")
-        .setDescription(
-          `O bot não possui **PERMISSÃO** para alterar o **APELIDO** do  usuário <@${target.user.id}>!`
-        )
-        .setColor("Yellow");
-
-      reject([name, gameId]);
-    }
-  });
 }
 
 export async function getTarget(interaction: ButtonInteraction): Promise<GuildMember> {
