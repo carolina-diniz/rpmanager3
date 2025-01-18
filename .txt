@@ -1,1 +1,4 @@
-logger para discord
+CARDS
+
+KAWO-0000:
+Adicionar o setNickname ao usuário aprovado

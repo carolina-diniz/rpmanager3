@@ -1,4 +1,5 @@
-import { ButtonInteraction, ColorResolvable, EmbedBuilder, Guild, GuildMember } from "discord.js";
+import { ButtonInteraction, ColorResolvable, EmbedBuilder, Guild, GuildMember, Message } from "discord.js";
+import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import { approvementContent } from "../buttons/content";
 
 export const interactionCache = new Map<string, ButtonInteraction>();
@@ -56,10 +57,24 @@ export const ApprovementService = {
     await interaction?.update({ embeds: [embed] });
   },
 
-  setNickname: async (entry: "approved" | "reject", member: GuildMember) => {
+  setNickname: async (entry: "approved" | "reject", member: GuildMember, message?: Message<boolean>) => {
     let nickName = "unknown";
 
     if (entry === "approved") {
+      let name = message?.embeds[0].fields.filter((data) => data.name === "Nome")[0].value;
+      let gameId = message?.embeds[0].fields.filter((data) => data.name === "ID")[0].value;
+      const names = name?.trim().split(" ");
+
+      if (names && names.length > 1) {
+        const firstName = names[0].charAt(0).toUpperCase() + names[0].slice(1).toLowerCase();
+        const lastName = names[1].charAt(0).toUpperCase() + names[1].slice(1).toLowerCase();
+        name = `${firstName} ${lastName}`;
+      }
+
+      const guildDb = await modelGuild.findOne({ id: message?.guild?.id });
+      const prefixRole = guildDb?.prefix!;
+
+      nickName = `${prefixRole} ${name} | ${gameId}`
     }
 
     if (entry === "reject") {
