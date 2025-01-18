@@ -1,17 +1,19 @@
-import { ButtonInteraction, EmbedBuilder, Guild, GuildMember, Role } from "discord.js";
-import database from "../../../core/database/database";
+import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
 import { ApprovementService } from "../services";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
-    const embed = new EmbedBuilder(interaction.message.embeds[0]!.data);
-    const target = await ApprovementService.getTarget(interaction.message.content, interaction.guild!, embed);
-    const staff = await interaction.guild?.members.fetch(interaction.user.id);
-    const entryRole = await getEntryRole(interaction.guild!);
+    const { user, guild, message } = interaction;
 
-    const gameId = interaction.message.embeds[0].fields.filter((data) => data.name === "ID")[0].value;
+    const embed = new EmbedBuilder(message.embeds[0]!.data);
+    const target = await ApprovementService.getTarget(message.content, guild!, embed);
+    const staff = await ApprovementService.getStaff(user.id, guild!);
+    const usefullGuildRoles = await ApprovementService.getUsefullGuildRoles(guild!.id);
+    const entryRole = await ApprovementService.getRole(usefullGuildRoles.entryRole, guild!);
+
+    const gameId = message.embeds[0].fields.filter((data) => data.name === "ID")[0].value;
 
     if (!entryRole) {
       embed
@@ -61,7 +63,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     await interaction.update({
       embeds: [embed],
-      //components: [],
+      components: [],
     });
   } catch (error) {
     print.error(__filename, error);
@@ -70,7 +72,7 @@ export async function execute(interaction: ButtonInteraction) {
 
 async function addMotoclubRole(interaction: ButtonInteraction, target: GuildMember, embed: EmbedBuilder) {
   try {
-    const motoclubgg = await interaction.guild?.roles.fetch("1254791457450102835"); // Motoclub GG
+    const motoclubgg = await ApprovementService.getRole("1254791457450102835", interaction.guild!); // Motoclub GG
 
     if (!motoclubgg) {
       throw new Error('Role "Motoclub GG" not found');
@@ -121,40 +123,4 @@ async function updateMember(member: GuildMember, gameId: string) {
   }
 
   await guildDb?.save();
-}
-
-async function getEntryRole(guild: Guild): Promise<Role | null> {
-  const guildDb = await database.get("guild", guild);
-  let entryRole = "";
-
-  guildDb?.roles.forEach((roles) => {
-    if (roles.ApprovedMember) {
-      entryRole = roles.id;
-    }
-  });
-
-  if (entryRole) {
-    return await guild.roles.fetch(entryRole);
-  }
-
-  return null;
-}
-
-export async function getTarget(interaction: ButtonInteraction): Promise<GuildMember> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const targetId = interaction.message.content.replace("||<@", "").replace(">||", "");
-      const target = await interaction.guild!.members.fetch(targetId);
-      if (!target) throw new Error("Target not found");
-      resolve(target);
-    } catch (error) {
-      const embed = new EmbedBuilder(interaction.message.embeds[0]!.data)
-        .setTitle("ENTRADA REJEITADA")
-        .setDescription("O usuário não foi encontrado na lista de membros do servidor.")
-        .setColor("Red");
-
-      await interaction.update({ embeds: [embed!], components: [] });
-      reject(error);
-    }
-  });
 }
