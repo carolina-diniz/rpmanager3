@@ -2,11 +2,12 @@ import { ButtonInteraction, EmbedBuilder, Guild, GuildMember, Role } from "disco
 import database from "../../../core/database/database";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
+import { ApprovementService } from "../services";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
     const embed = new EmbedBuilder(interaction.message.embeds[0]!.data);
-    const target = await getTarget(interaction);
+    const target = await ApprovementService.getTarget(interaction.message.content, interaction.guild!, embed);
     const staff = await interaction.guild?.members.fetch(interaction.user.id);
     const entryRole = await getEntryRole(interaction.guild!);
 
@@ -60,7 +61,7 @@ export async function execute(interaction: ButtonInteraction) {
 
     await interaction.update({
       embeds: [embed],
-      components: [],
+      //components: [],
     });
   } catch (error) {
     print.error(__filename, error);

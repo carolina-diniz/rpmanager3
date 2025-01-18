@@ -1,14 +1,20 @@
-import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js";
+import { ButtonInteraction, EmbedBuilder } from "discord.js";
 import print from "../../../core/print/print";
-import { getTarget } from "./approvement_approve";
+import { ApprovementService } from "../services";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
-    const embed = new EmbedBuilder(interaction.message.embeds[0]!.data);
-    const target = await getTarget(interaction);
-    const staff = await interaction.guild?.members.fetch(interaction.user.id);
+    const { message, guild, user, channel } = interaction;
 
-    await setNickname(interaction, target, embed);
+    const embed = new EmbedBuilder(message.embeds[0]!.data);
+    const target = await ApprovementService.getTarget(message.content, guild!, embed);
+    const staff = await ApprovementService.getStaff(user.id, guild!)
+
+    try {
+      await ApprovementService.setNickname('reject', target)
+    } catch (error) {
+      print.error(__filename, `falha ao mudar nickname de ${target.id}`, error, guild, target.user, channel);
+    }
 
     embed
       .setTitle("ENTRADA REJEITADA")
@@ -21,32 +27,9 @@ export async function execute(interaction: ButtonInteraction) {
 
     await interaction.update({
       embeds: [embed],
-      components: [],
+      //components: [],
     });
   } catch (error) {
     print.error(__filename, error);
   }
-}
-
-async function setNickname(
-  interaction: ButtonInteraction,
-  target: GuildMember,
-  embed: EmbedBuilder
-): Promise<string> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      await target.setNickname(`Entrada Rejeitada | ${target.user.globalName}`);
-      resolve(`Entrada Rejeitada | ${target.user.globalName}`);
-    } catch (error) {
-      embed
-        .setTitle("MISSING PERMISSIONS")
-        .setDescription(
-          `O bot não possui **PERMISSÃO** para alterar o **APELIDO** do  usuário <@${target.user.id}>!`
-        )
-        .setColor("Yellow");
-      await interaction.update({ embeds: [embed] });
-
-      reject("Error setting nickname");
-    }
-  });
 }

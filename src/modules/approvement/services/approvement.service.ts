@@ -1,12 +1,12 @@
-import { ButtonInteraction, ColorResolvable, EmbedBuilder, Guild, GuildMember, Message } from "discord.js";
+import { ButtonInteraction, ColorResolvable, EmbedBuilder, Guild, GuildMember } from "discord.js";
 import { approvementContent } from "../buttons/content";
 
 export const interactionCache = new Map<string, ButtonInteraction>();
 
 export const ApprovementService = {
-  getTarget: async (message: Message<boolean>, guild: Guild, embed: EmbedBuilder): Promise<GuildMember> => {
+  getTarget: async (messageContent: string, guild: Guild, embed: EmbedBuilder): Promise<GuildMember> => {
     try {
-      const targetId = message.content.replace(/\D/g, "");
+      const targetId = messageContent.replace(/\D/g, "");
       const target = await guild.members.fetch(targetId);
 
       if (!target) {
@@ -16,6 +16,14 @@ export const ApprovementService = {
       return target;
     } catch (error) {
       await ApprovementService.updateEmbed(approvementContent.user_not_found, "", embed);
+      throw error;
+    }
+  },
+
+  getStaff: async (staffId: string, guild: Guild): Promise<GuildMember> => {
+    try {
+      return await guild.members.fetch(staffId);
+    } catch (error) {
       throw error;
     }
   },
@@ -46,5 +54,23 @@ export const ApprovementService = {
     embed.setTitle(title).setDescription(updatedDescription).setColor(color);
 
     await interaction?.update({ embeds: [embed] });
+  },
+
+  setNickname: async (entry: "approved" | "reject", member: GuildMember) => {
+    let nickName = "unknown";
+
+    if (entry === "approved") {
+    }
+
+    if (entry === "reject") {
+      nickName = `Entrada Rejeitada | ${member.user.globalName}`;
+    }
+
+    try {
+      await member.setNickname(nickName);
+      return nickName;
+    } catch (error) {
+      throw error;
+    }
   },
 };
