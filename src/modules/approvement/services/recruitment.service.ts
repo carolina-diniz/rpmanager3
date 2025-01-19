@@ -8,7 +8,7 @@ export const RecruitmentService = {
     try {
       const guildDb = await modelGuild.findOne({ id: guild.id });
 
-      const staffGame = guildDb?.members.get(target.id)?.gameId;
+      const staffGame = guildDb?.members.get(staff.id)?.gameId;
 
       const recruitmentDb = await modelRecruitment.create({
         id: `${Date.now()}`,
