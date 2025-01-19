@@ -27,6 +27,9 @@ feat(action): adiciona comando de criar ações
 [x] KAWO-0008:
 fix(action): troca o nome de bandido para participantes
 
-[] KAWO-0009:
+[x] KAWO-0009:
+fix(approvement): arruma o gameId do recrutador
+
+[] KAWO-0010:
 Cria a logica para pegar os recrutamentos através de botões
 
