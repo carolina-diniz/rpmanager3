@@ -47,8 +47,8 @@ export async function execute(interaction: CommandInteraction) {
 
     const membersqtInput = new TextInputBuilder()
       .setCustomId("action_input_membersqt")
-      .setLabel("Bandidos")
-      .setPlaceholder("Quantidade de bandidos. Ex: 10")
+      .setLabel("Participantes")
+      .setPlaceholder("Quantidade de participantes. Ex: 10")
       .setRequired(true)
       .setStyle(TextInputStyle.Short);
 
