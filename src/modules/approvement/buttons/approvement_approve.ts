@@ -2,6 +2,7 @@ import { ButtonInteraction, EmbedBuilder, GuildMember } from "discord.js";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
 import print from "../../../core/print/print";
 import { ApprovementService } from "../services";
+import { RecruitmentService } from "../services/recruitment.service";
 
 export async function execute(interaction: ButtonInteraction) {
   try {
@@ -61,12 +62,12 @@ export async function execute(interaction: ButtonInteraction) {
 
     await updateMember(target, gameId);
 
-    // const recruiterId = message.embeds[0].fields.filter((data) => data.name === "Recrutador")[0]?.value;
-    // const recruiter = await guild?.members.fetch(recruiterId)
+    const recruiterId = message.embeds[0].fields.filter((data) => data.name === "Recrutador")[0]?.value;
+    const recruiter = await guild?.members.fetch(recruiterId.replace(/\D/g, "")).catch((error) => console.error(error))
 
-    // if (recruiter) {
-    //   await RecruitmentService.createRecruitment(guild!, target, recruiter);
-    // }
+    if (recruiter) {
+      await RecruitmentService.createRecruitment(guild!, target, recruiter);
+    }
 
     await interaction.update({
       embeds: [embed],
