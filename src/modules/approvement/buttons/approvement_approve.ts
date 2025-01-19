@@ -9,7 +9,7 @@ export async function execute(interaction: ButtonInteraction) {
     const { user, guild, message } = interaction;
 
     const embed = new EmbedBuilder(message.embeds[0]!.data);
-    const target = await ApprovementService.getTarget(message.content, guild!, embed);
+    const target = await ApprovementService.getTarget(message.content, guild!, embed, interaction);
     const staff = await ApprovementService.getStaff(user.id, guild!);
     const usefullGuildRoles = await ApprovementService.getUsefullGuildRoles(guild!.id);
     const entryRole = await ApprovementService.getRole(usefullGuildRoles.entryRole, guild!);

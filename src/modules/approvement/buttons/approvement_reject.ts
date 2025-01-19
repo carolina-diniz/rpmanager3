@@ -7,7 +7,7 @@ export async function execute(interaction: ButtonInteraction) {
     const { message, guild, user, channel } = interaction;
 
     const embed = new EmbedBuilder(message.embeds[0]!.data);
-    const target = await ApprovementService.getTarget(message.content, guild!, embed);
+    const target = await ApprovementService.getTarget(message.content, guild!, embed, interaction);
     const staff = await ApprovementService.getStaff(user.id, guild!)
 
     try {

@@ -8,12 +8,16 @@ import {
   Role,
 } from "discord.js";
 import modelGuild from "../../../core/database/models/guilds/modelGuild";
-import { approvementContent } from "../buttons/content";
 
 export const interactionCache = new Map<string, ButtonInteraction>();
 
 export const ApprovementService = {
-  getTarget: async (messageContent: string, guild: Guild, embed: EmbedBuilder): Promise<GuildMember> => {
+  getTarget: async (
+    messageContent: string,
+    guild: Guild,
+    embed: EmbedBuilder,
+    interaction?: ButtonInteraction
+  ): Promise<GuildMember> => {
     try {
       const targetId = messageContent.replace(/\D/g, "");
       const target = await guild.members.fetch(targetId);
@@ -24,7 +28,13 @@ export const ApprovementService = {
 
       return target;
     } catch (error) {
-      await ApprovementService.updateEmbed(approvementContent.user_not_found, "", embed);
+      const embed = new EmbedBuilder(interaction?.message.embeds[0]!.data)
+        .setTitle("ENTRADA REJEITADA")
+        .setDescription("O usuário não foi encontrado na lista de membros do servidor.")
+        .setColor("Red");
+
+      await interaction?.update({ embeds: [embed!], components: [] });
+
       throw error;
     }
   },
@@ -46,9 +56,10 @@ export const ApprovementService = {
     },
     optional: string | null,
     embed: EmbedBuilder,
-    staff?: GuildMember
+    staff?: GuildMember,
+    interactionRaw?: ButtonInteraction
   ): Promise<void> => {
-    const interaction = interactionCache.get("interaction");
+    const interaction = interactionRaw ?? interactionCache.get("interaction");
     const { title, description, color, footer } = content;
 
     if (footer && staff) {
