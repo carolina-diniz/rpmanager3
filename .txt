@@ -21,6 +21,9 @@ fix(approvement): arruma o recruiter
 [x] KAWO-0006:
 fix(approvement): arruma o recruiter
 
-[] KAWO-0007:
+[x] KAWO-0007:
+feat(action): adiciona comando de criar ações
+
+[] KAWO-0008:
 Cria a logica para pegar os recrutamentos através de botões
 
