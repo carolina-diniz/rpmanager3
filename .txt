@@ -30,6 +30,9 @@ fix(action): troca o nome de bandido para participantes
 [x] KAWO-0009:
 fix(approvement): arruma o gameId do recrutador
 
-[] KAWO-0010:
+[x] KAWO-0010:
+feat(recruitment): cria comando recrutment para gerar mensagem
+
+[] KAWO-0011:
 Cria a logica para pegar os recrutamentos através de botões
 
