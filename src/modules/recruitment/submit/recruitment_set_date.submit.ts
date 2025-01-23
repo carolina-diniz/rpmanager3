@@ -30,7 +30,7 @@ export async function execute(interaction: ModalSubmitInteraction) {
 
     const recruitmentList = await modelRecruitment
       .find({
-        guildId: '1216188508113338408',
+        guildId: guild?.id,
         createdAt: {
           $gte: initialDate,
           $lte: endDate,
