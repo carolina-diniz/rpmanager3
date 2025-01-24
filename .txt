@@ -33,6 +33,35 @@ fix(approvement): arruma o gameId do recrutador
 [x] KAWO-0010:
 feat(recruitment): cria comando recrutment para gerar mensagem
 
-[] KAWO-0011:
-Cria a logica para pegar os recrutamentos através de botões
+[x] KAWO-0011:
+fix(core/events): arruma os comandos ao adicionar bot ao servidor
 
+
+
+
+Proxima Feature:
+Selling - Vendas
+
+A ideia será ter um comando para vender usando algumas regras de negócios.
+
+Primeiro: A feature deverá ser divida em 3 partes:
+Configuração, Venda e Banco de dados
+
+Configuração:
+Será responsável por servir como interface para gerenciar os itens a serem vendidos, seus preços unitários, valores com desconto de parceria, porcentagem de comissão para o vendedor.
+
+Banco de dados:
+será responsável por armazenar os dados dos itens a serem vendidos, bem como as vendas realizadas.
+deverá ter dois modals para isso, separando as logicas para facilitar a manutenção dos dados.
+
+Venda:
+Será responsável por permitir que um usuário venda um item escolhido na lista de vendas.
+A ideia será ter um sistema que seja visualmente agradável e ajude ao usuário a vender desde a primeira vez.
+
+
+Aprofundamento:
+Configuração:
+- Nome do comando será: config_selling
+
+Venda:
+- Usar o comando selling
