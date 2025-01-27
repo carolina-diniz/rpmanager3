@@ -36,6 +36,8 @@ feat(recruitment): cria comando recrutment para gerar mensagem
 [x] KAWO-0011:
 fix(core/events): arruma os comandos ao adicionar bot ao servidor
 
+[x] KHAUAN-0012:
+feat(commands): lista todos os comandos da aplicacao
 
 
 
