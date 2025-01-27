@@ -41,6 +41,9 @@ feat(commands): lista todos os comandos da aplicacao
 
 [x] KAWO-0013:
 feat(changelog): cria comando para criar um changelog no discord do bot
+
+[x] KHAUAN-0014:
+refactor(commands): adiciona changelog a lista
  
 
 Proxima Feature:

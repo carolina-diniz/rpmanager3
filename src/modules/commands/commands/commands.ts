@@ -13,7 +13,8 @@ export async function execute(interaction: CommandInteraction) {
       "**2. `register`** - Abre o menu para registrar um Set.\n"+
       "**3. `action`** - Cria uma ação com data e hora especificadas.\n"+
       "**4. `recruitment`** - Mostra a lista das 10 pessoas que mais recrutaram.\n"+
-      "**5. `commands`** - Exibe todos os comandos disponíveis no Bot.")
+      "**5. `commands`** - Exibe todos os comandos disponíveis no Bot.\n"+
+      "**6. `changelog`** - Apenas moderadores do bot podem usá-la.")
       
 
       await interaction.reply({embeds:[embed], ephemeral:true})
