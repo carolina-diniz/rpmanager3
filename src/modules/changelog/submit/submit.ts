@@ -5,8 +5,6 @@ export async function execute(interaction: ModalSubmitInteraction) {
   try {
     await interaction.deferReply();
 
-    const {} = interaction;
-
     const data = {
       version: interaction.fields.getTextInputValue("changelog_input_version"),
       changes: interaction.fields.getTextInputValue("changelog_input_changes"),
