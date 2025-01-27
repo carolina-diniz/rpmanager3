@@ -39,7 +39,9 @@ fix(core/events): arruma os comandos ao adicionar bot ao servidor
 [x] KHAUAN-0012:
 feat(commands): lista todos os comandos da aplicacao
 
-
+[x] KAWO-0013:
+feat(changelog): cria comando para criar um changelog no discord do bot
+ 
 
 Proxima Feature:
 Selling - Vendas

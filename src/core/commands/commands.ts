@@ -1,4 +1,5 @@
 import { actionCommand } from "../../modules/action/commands";
+import { changelogCommand } from "../../modules/changelog";
 import { commandsCommand } from "../../modules/commands";
 import { recruitmentCommand } from "../../modules/recruitment";
 import { registerCommand } from "../../modules/register";
@@ -10,4 +11,5 @@ export default {
   action: actionCommand,
   recruitment: recruitmentCommand,
   commands: commandsCommand,
+  changelog: changelogCommand,
 };

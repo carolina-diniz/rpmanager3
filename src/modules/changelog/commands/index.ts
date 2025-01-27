@@ -1,0 +1,1 @@
+export * as changelogCommand from './changelog'
