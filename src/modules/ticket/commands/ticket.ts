@@ -1,0 +1,27 @@
+import { EmbedBuilder } from "@discordjs/builders";
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import print from "../../../core/print/print";
+
+export const data = new SlashCommandBuilder()
+  .setName("ticket")
+  .setDescription("cria configuração para novo ticket");
+
+export async function execute(interaction: CommandInteraction) {
+  try {
+    const embed = new EmbedBuilder()
+      .setTitle("titulo")
+      .setDescription("descrição")
+      .setFooter({ text: interaction.user.id });
+
+    await interaction.reply({ embeds: [embed], ephemeral: true });
+  } catch (error) {
+    print.error(
+      __filename,
+      "error ao executar o comando ticket",
+      error,
+      interaction.guild,
+      interaction.user,
+      interaction.channel
+    );
+  }
+}
