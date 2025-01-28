@@ -2,6 +2,7 @@ import { actionButtons } from "../../modules/action/buttons";
 import { approvementButtons } from "../../modules/approvement/buttons";
 import { recruitmentButtons } from "../../modules/recruitment/buttons";
 import { registerButtons } from "../../modules/register";
+import { ticketButtons } from "../../modules/ticket";
 import { generalButtons } from "./general";
 
 export const buttons = {
@@ -10,4 +11,5 @@ export const buttons = {
   ...approvementButtons,
   ...actionButtons,
   ...recruitmentButtons,
+  ...ticketButtons,
 }
