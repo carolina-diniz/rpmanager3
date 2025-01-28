@@ -45,33 +45,21 @@ feat(changelog): cria comando para criar um changelog no discord do bot
 [x] KHAUAN-0014:
 refactor(commands): adiciona changelog a lista
 
-[x] KAWO-0015: v3.0.7
+[x] KAWO-0015:
 fix(core/models): lida com erros de informações ausentes
 
-
-Proxima Feature:
-Selling - Vendas
-
-A ideia será ter um comando para vender usando algumas regras de negócios.
-
-Primeiro: A feature deverá ser divida em 3 partes:
-Configuração, Venda e Banco de dados
-
-Configuração:
-Será responsável por servir como interface para gerenciar os itens a serem vendidos, seus preços unitários, valores com desconto de parceria, porcentagem de comissão para o vendedor.
-
-Banco de dados:
-será responsável por armazenar os dados dos itens a serem vendidos, bem como as vendas realizadas.
-deverá ter dois modals para isso, separando as logicas para facilitar a manutenção dos dados.
-
-Venda:
-Será responsável por permitir que um usuário venda um item escolhido na lista de vendas.
-A ideia será ter um sistema que seja visualmente agradável e ajude ao usuário a vender desde a primeira vez.
+[x] KAWO-0016:
+feat(ticket): cria comando de ticket
 
 
-Aprofundamento:
-Configuração:
-- Nome do comando será: config_selling
-
-Venda:
-- Usar o comando selling
+1. sistema de ticket
+2. sistema para desativar funcoes
+3. sistema de vendas itens
+4. sistema de PD
+5. sistema de farm
+6. sistema de sorteio
+7. sistema de teste de elite
+8. sistema de hierarquia
+9. sistema de XP
+10. sistema de doações
+11. sistema de x1
