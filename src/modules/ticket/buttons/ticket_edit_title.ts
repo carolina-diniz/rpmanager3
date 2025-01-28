@@ -24,6 +24,7 @@ export async function execute(interaction: ButtonInteraction) {
       .setLabel("Título")
       .setPlaceholder("Digite o novo título do ticket")
       .setStyle(TextInputStyle.Short)
+      .setRequired(true)
       .setMinLength(2)
       .setMaxLength(30);
 
@@ -35,7 +36,7 @@ export async function execute(interaction: ButtonInteraction) {
   } catch (error) {
     print.error(
       __filename,
-      "error ao executar botão de edição do ticket",
+      "error ao executar botão de edição do título do ticket",
       error,
       interaction.guild,
       interaction.user,

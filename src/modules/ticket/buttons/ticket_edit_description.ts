@@ -21,11 +21,12 @@ export async function execute(interaction: ButtonInteraction) {
 
     const descriptionInput = new TextInputBuilder()
       .setCustomId("description_input")
-      .setLabel("Título")
-      .setPlaceholder("Digite o novo título do ticket")
-      .setStyle(TextInputStyle.Short)
-      .setMinLength(2)
-      .setMaxLength(30);
+      .setLabel("Descrição")
+      .setPlaceholder("Digite a nova descrição do ticket")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true)
+      .setMinLength(1)
+      .setMaxLength(1500);
 
     const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(descriptionInput);
 
@@ -35,7 +36,7 @@ export async function execute(interaction: ButtonInteraction) {
   } catch (error) {
     print.error(
       __filename,
-      "error ao executar botão de edição do ticket",
+      "error ao executar botão de edição da descrição do ticket",
       error,
       interaction.guild,
       interaction.user,
