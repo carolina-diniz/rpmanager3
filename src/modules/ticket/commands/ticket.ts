@@ -1,5 +1,5 @@
-import { EmbedBuilder } from "@discordjs/builders";
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder } from "@discordjs/builders";
+import { ButtonStyle, CommandInteraction, SlashCommandBuilder } from "discord.js";
 import print from "../../../core/print/print";
 
 export const data = new SlashCommandBuilder()
@@ -13,7 +13,15 @@ export async function execute(interaction: CommandInteraction) {
       .setDescription("descrição")
       .setFooter({ text: interaction.user.id });
 
-    await interaction.reply({ embeds: [embed], ephemeral: true });
+      const editTitle = new ButtonBuilder()
+      .setCustomId("ticket_edit_title")
+      .setLabel("Editar Título")
+      .setStyle(ButtonStyle.Primary)
+
+      const row1 = new ActionRowBuilder<ButtonBuilder>().addComponents(editTitle)
+
+
+    await interaction.reply({ embeds: [embed],components:[row1], ephemeral: true });
   } catch (error) {
     print.error(
       __filename,
