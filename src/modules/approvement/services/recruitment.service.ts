@@ -10,6 +10,10 @@ export const RecruitmentService = {
 
       const staffGame = guildDb?.members.get(staff.id)?.gameId;
 
+      if (!staff.nickname || !staffGame) {
+        throw new Error('Nickname ou gameId do staff não encontrado')
+      }
+
       const recruitmentDb = await modelRecruitment.create({
         id: `${Date.now()}`,
         guildId: guild.id,

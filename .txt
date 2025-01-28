@@ -44,7 +44,10 @@ feat(changelog): cria comando para criar um changelog no discord do bot
 
 [x] KHAUAN-0014:
 refactor(commands): adiciona changelog a lista
- 
+
+[x] KAWO-0015: v3.0.7
+fix(core/models): lida com erros de informações ausentes
+
 
 Proxima Feature:
 Selling - Vendas
