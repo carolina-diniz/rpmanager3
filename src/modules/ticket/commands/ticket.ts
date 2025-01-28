@@ -28,10 +28,9 @@ export async function execute(interaction: CommandInteraction) {
       .setLabel("Adicionar Cargo de Suporte")
       .setStyle(ButtonStyle.Success);
 
-    const row1 = new ActionRowBuilder<ButtonBuilder>().addComponents(editTitle, editDescription);
-    const row2 = new ActionRowBuilder<ButtonBuilder>().addComponents(addSupportRole);
+    const row1 = new ActionRowBuilder<ButtonBuilder>().addComponents(editTitle, editDescription, addSupportRole);
 
-    await interaction.reply({ embeds: [embed], components: [row1, row2], ephemeral: true });
+    await interaction.reply({ embeds: [embed], components: [row1], ephemeral: true });
   } catch (error) {
     print.error(
       __filename,
