@@ -1,1 +1,0 @@
-export * as ticketCommand from "./ticket"
