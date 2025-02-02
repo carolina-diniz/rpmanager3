@@ -29,7 +29,7 @@ export async function execute(interaction: CommandInteraction) {
       .setStyle(ButtonStyle.Primary);
 
       const concluir = new ButtonBuilder()
-      .setCustomId("ticket_concluir")
+      .setCustomId("ticket_conclude")
       .setLabel("Concluir")
       .setStyle(ButtonStyle.Success)
 
